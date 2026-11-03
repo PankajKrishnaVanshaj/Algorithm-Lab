@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#101827">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="author" content="PANKRI">
+    <link rel="icon" href="../assets/favicon.png" type="image/png">
+    <link rel="icon" href="../assets/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="../assets/seo-pages.css">
+    <title>Bubble Sort vs Quick Sort: Differences, Complexity and Examples | PANKRI</title>
+    <meta name="description"
+        content="Compare Bubble Sort and Quick Sort with clear examples, time and space complexity, stability, use cases and an interactive side-by-side algorithm visualizer.">
+    <link rel="canonical" href="https://pankri.com/bubble-sort-vs-quick-sort/">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Bubble Sort vs Quick Sort: Differences, Complexity and Examples">
+    <meta property="og:description"
+        content="Compare Bubble Sort and Quick Sort with clear examples, time and space complexity, stability, use cases and an interactive side-by-side algorithm visualizer.">
+    <meta property="og:url" content="https://pankri.com/bubble-sort-vs-quick-sort/">
+    <meta name="twitter:card" content="summary">
+    <script
+        type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://pankri.com/bubble-sort-vs-quick-sort/#webpage", "url": "https://pankri.com/bubble-sort-vs-quick-sort/", "name": "Bubble Sort vs Quick Sort: Differences, Complexity and Examples", "description": "Compare Bubble Sort and Quick Sort with clear examples, time and space complexity, stability, use cases and an interactive side-by-side algorithm visualizer.", "isPartOf": {"@id": "https://pankri.com/#website"}, "breadcrumb": {"@id": "https://pankri.com/bubble-sort-vs-quick-sort/#breadcrumb"}}, {"@type": "BreadcrumbList", "@id": "https://pankri.com/bubble-sort-vs-quick-sort/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PANKRI", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 2, "name": "Algorithm Lab", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 3, "name": "Bubble Sort vs Quick Sort: Which One Should You Use?", "item": "https://pankri.com/bubble-sort-vs-quick-sort/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which is better for a large array?", "acceptedAnswer": {"@type": "Answer", "text": "Quick Sort is generally the more scalable choice on average, with O(n log n) average time compared with Bubble Sort’s O(n²) average time. Actual library choices may differ."}}, {"@type": "Question", "name": "Can Bubble Sort be O(n)?", "acceptedAnswer": {"@type": "Answer", "text": "An optimized Bubble Sort can run in O(n) on already sorted input if it detects that a complete pass made no swaps. Its average and worst-case time remain O(n²)."}}, {"@type": "Question", "name": "Is Quick Sort stable?", "acceptedAnswer": {"@type": "Answer", "text": "The common in-place Quick Sort algorithm is not stable. Stability depends on the specific implementation; stable variants are possible but may use additional memory or different partitioning."}}]}]}</script>
+</head>
+
+<body><a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="topbar">
+        <a class="brand" href="/" aria-label="PANKRI home">
+            <span class="brand-mark" aria-hidden="true">P</span>
+            <span class="brand-word">PANKRI<span class="brand-dot">.</span></span>
+        </a>
+        <div class="topbar-divider" aria-hidden="true"></div>
+        <div class="product-name"><span class="product-icon" aria-hidden="true">⌘</span><span>Algorithm Lab</span></div>
+        <div class="topbar-spacer"></div>
+        <button class="theme-toggle" type="button" data-action="toggle-theme" aria-label="Switch color theme"
+            title="Switch color theme"><span class="theme-icon" aria-hidden="true">☾</span></button>
+    </header>
+    <main id="main-content" class="site-shell seo-page">
+        <div class="seo-breadcrumb"><a href="/">Home</a> / Bubble
+            Sort vs Quick Sort: Which One Should You Use?</div>
+        <header class="seo-hero">
+            <div class="seo-kicker">PANKRI ALGORITHM LAB · INTERACTIVE GUIDE</div>
+            <h1>Bubble Sort vs Quick Sort: Which One Should You Use?</h1>
+            <p>Bubble Sort and Quick Sort both arrange values, but they approach the problem very differently. This
+                guide compares their logic, complexity and practical trade-offs, with an interactive way to inspect the
+                operations.</p><a class="seo-cta" href="../?view=sorting#workspace">Open the interactive visualizer
+                <span aria-hidden="true">→</span></a>
+            <div class="seo-meta">Free browser-based learning tool · No account required</div>
+        </header>
+        <div class="seo-layout">
+            <article class="seo-content">
+                <section id="topic1">
+                    <h2>The core difference</h2>
+                    <p>Bubble Sort makes repeated passes through adjacent pairs, moving larger values toward the end of
+                        the array. Quick Sort chooses a pivot, partitions values into groups around that pivot, then
+                        sorts the groups recursively. Bubble Sort is straightforward to trace; Quick Sort usually scales
+                        much better for larger arrays.</p>
+                </section>
+                <section id="topic2">
+                    <h2>A small example</h2>
+                    <p>Consider [8, 3, 6, 2, 7]. Bubble Sort begins by comparing 8 and 3, swapping them, then continues
+                        through adjacent pairs. Quick Sort first chooses a pivot according to its partition strategy.
+                        Values smaller than the pivot are moved to one side and larger values to the other. The
+                        resulting subarrays are then processed recursively. The exact sequence depends on the chosen
+                        pivot and partition implementation.</p>
+                </section>
+                <section id="topic3">
+                    <h2>Time and space complexity</h2>
+                    <p>Bubble Sort has O(n²) average and worst-case time. An optimized implementation that stops when a
+                        pass makes no swaps can finish in O(n) on already sorted data. Quick Sort has O(n log n) average
+                        time and O(n²) worst-case time. Its auxiliary stack commonly uses O(log n) space on balanced
+                        recursion, but can reach O(n) in an unbalanced worst case; in-place partitioning uses only a
+                        small amount of extra array storage.</p>
+                </section>
+                <section id="topic4">
+                    <h2>Stability and practical use</h2>
+                    <p>Bubble Sort is stable when equal elements are not swapped, but it is rarely a good choice for
+                        large production datasets. Standard in-place Quick Sort implementations are usually not stable.
+                        Quick Sort is widely valued for its average-case performance and cache-friendly behavior,
+                        although production libraries may use hybrid algorithms and safeguards rather than a textbook
+                        version.</p>
+                </section>
+                <section id="topic5">
+                    <h2>Try the same input in the lab</h2>
+                    <p>Open PANKRI Algorithm Lab, select the same array for both algorithms, and compare comparisons,
+                        swaps and writes. Keep the input fixed between runs. Try sorted, reversed and duplicate-heavy
+                        values to see how input order and pivot choices affect the trace.</p>
+                </section>
+                <div class="seo-callout"><strong>Try it yourself</strong>
+                    <p>Reading about an algorithm is only the first step. Open the PANKRI workspace, use a sample or
+                        custom input, and inspect the operations rather than relying on a static example.</p><a
+                        href="../?view=sorting#workspace">Launch the relevant workspace →</a>
+                </div>
+                <h2>Explore more in Algorithm Lab</h2>
+                <div class="seo-related"><a href="../sorting-algorithm-visualizer/"><strong>Sorting
+                            visualizer</strong><span>Trace comparisons and swaps in five sorting methods.</span></a><a
+                        href="../binary-search-visualizer/"><strong>Binary Search visualizer</strong><span>Inspect
+                            midpoint decisions on sorted data.</span></a><a
+                        href="../graph-algorithm-visualizer/"><strong>Graph algorithm visualizer</strong><span>Explore
+                            BFS, DFS and shortest paths.</span></a><a href="../data-structure-visualizer/"><strong>Data
+                            structure visualizer</strong><span>Practice stack, queue and linked-list
+                            operations.</span></a></div>
+                <section class="seo-faq">
+                    <h2>Frequently asked questions</h2>
+                    <details>
+                        <summary>Which is better for a large array?</summary>
+                        <p>Quick Sort is generally the more scalable choice on average, with O(n log n) average time
+                            compared with Bubble Sort’s O(n²) average time. Actual library choices may differ.</p>
+                    </details>
+                    <details>
+                        <summary>Can Bubble Sort be O(n)?</summary>
+                        <p>An optimized Bubble Sort can run in O(n) on already sorted input if it detects that a
+                            complete pass made no swaps. Its average and worst-case time remain O(n²).</p>
+                    </details>
+                    <details>
+                        <summary>Is Quick Sort stable?</summary>
+                        <p>The common in-place Quick Sort algorithm is not stable. Stability depends on the specific
+                            implementation; stable variants are possible but may use additional memory or different
+                            partitioning.</p>
+                    </details>
+                </section>
+            </article>
+            <aside class="seo-aside">
+                <h2>In this guide</h2><a href="#topic1">The core difference</a><a href="#topic2">A small example</a><a
+                    href="#topic3">Time and space complexity</a><a href="#topic4">Stability and practical use</a><a
+                    href="#topic5">Try the same input in the lab</a><a href="../?view=sorting#workspace">Open
+                    interactive tool →</a>
+            </aside>
+        </div>
+    </main>
+    <footer class="seo-footer"><a href="../">Algorithm Lab</a><a href="https://pankri.com/">PANKRI Home</a><a
+            href="../about/">About</a><a href="../contact/">Contact</a><a href="../privacy-policy/">Privacy</a><a
+            href="../terms/">Terms</a><a href="../disclaimer/">Disclaimer</a><a
+            href="mailto:contact@pankri.com">contact@pankri.com</a><a href="https://in.linkedin.com/in/pankri"
+            target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <p>Educational explanations are provided for learning. Operation counts are illustrative and are not controlled
+            runtime benchmarks.</p>
+    </footer>
+    <script src="../assets/app.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>Quicksort Partition Explained: A Step-by-Step Array Example | PANKRI</title>
+  <meta name="description"
+    content="Understand the Quicksort partition operation with a concrete array, pivot, pointer movement and pseudocode. Learn what the partition index means and why pivot choice matters.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="author" content="PANKRI">
+  <link rel="canonical" href="https://pankri.com/quicksort-partition-explained-a-step-by-step-array-example/">
+  <link rel="icon" href="../assets/favicon.png" type="image/png">
+  <link rel="icon" href="../assets/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <link rel="stylesheet" href="../assets/seo-pages.css">
+  <style>
+    .article-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 30px 22px 70px
+    }
+
+    .article-crumb {
+      font-size: .9rem;
+      color: var(--muted, #64748b);
+      margin: 12px 0 26px
+    }
+
+    .article-crumb a {
+      color: inherit
+    }
+
+    .article-hero {
+      padding: clamp(28px, 5vw, 56px);
+      border: 1px solid var(--line, #dbe2ea);
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(39, 110, 241, .09), rgba(17, 185, 129, .05));
+      margin-bottom: 30px
+    }
+
+    .article-kicker {
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: #2873d8
+    }
+
+    .article-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+      margin: .7rem 0 1rem
+    }
+
+    .article-hero p {
+      font-size: 1.12rem;
+      max-width: 800px;
+      line-height: 1.75;
+      color: var(--muted, #64748b)
+    }
+
+    .article-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 38px
+    }
+
+    .article-body {
+      min-width: 0;
+      line-height: 1.8
+    }
+
+    .article-body h2 {
+      margin-top: 2.3rem;
+      line-height: 1.25;
+      letter-spacing: -.02em
+    }
+
+    .article-body h3 {
+      margin-top: 1.6rem
+    }
+
+    .article-body pre {
+      overflow: auto;
+      background: #101827;
+      color: #e5edf8;
+      padding: 18px;
+      border-radius: 12px;
+      line-height: 1.6
+    }
+
+    .article-body code {
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace
+    }
+
+    .article-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0
+    }
+
+    .article-body th,
+    .article-body td {
+      border: 1px solid var(--line, #dbe2ea);
+      padding: 10px;
+      text-align: left
+    }
+
+    .article-aside {
+      align-self: start;
+      position: sticky;
+      top: 22px;
+      border: 1px solid var(--line, #dbe2ea);
+      border-radius: 16px;
+      padding: 18px
+    }
+
+    .article-aside a {
+      display: block;
+      padding: 7px 0;
+      color: var(--link, #2563eb)
+    }
+
+    .article-cta {
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(37, 99, 235, .08);
+      margin: 26px 0
+    }
+
+    .article-cta a {
+      font-weight: 800
+    }
+
+    .bit-demo {
+      border: 1px solid var(--line, #dbe2ea);
+      border-radius: 16px;
+      padding: 18px;
+      margin: 22px 0
+    }
+
+    .bit-grid {
+      display: grid;
+      grid-template-columns: repeat(16, minmax(22px, 1fr));
+      gap: 5px;
+      margin: 14px 0
+    }
+
+    .bit-cell {
+      aspect-ratio: 1;
+      border-radius: 6px;
+      background: #e7edf5;
+      color: #344256;
+      display: grid;
+      place-items: center;
+      font: 700 .78rem ui-monospace, monospace
+    }
+
+    .bit-cell.on {
+      background: #2563eb;
+      color: #fff
+    }
+
+    .bit-demo input {
+      max-width: 260px
+    }
+
+    .bit-demo button {
+      padding: 9px 14px;
+      border: 0;
+      border-radius: 9px;
+      background: #2563eb;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer
+    }
+
+    .demo-note {
+      color: var(--muted, #64748b);
+      font-size: .9rem
+    }
+
+    .article-faq details {
+      border-top: 1px solid var(--line, #dbe2ea);
+      padding: 14px 0
+    }
+
+    .article-faq summary {
+      font-weight: 750;
+      cursor: pointer
+    }
+
+    .article-byline {
+      font-size: .88rem;
+      color: var(--muted, #64748b)
+    }
+
+    @media(max-width:850px) {
+      .article-layout {
+        grid-template-columns: 1fr
+      }
+
+      .article-aside {
+        position: static;
+        order: -1
+      }
+
+      .bit-grid {
+        grid-template-columns: repeat(8, minmax(22px, 1fr))
+      }
+    }
+  </style>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PANKRI">
+  <meta property="og:title" content="Quicksort Partition Explained: A Step-by-Step Array Example">
+  <meta property="og:description"
+    content="Understand the Quicksort partition operation with a concrete array, pivot, pointer movement and pseudocode. Learn what the partition index means and why pivot choice matters.">
+  <meta property="og:url" content="https://pankri.com/quicksort-partition-explained-a-step-by-step-array-example/">
+  <meta name="twitter:card" content="summary">
+  <script
+    type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://pankri.com/quicksort-partition-explained-a-step-by-step-array-example/#webpage", "url": "https://pankri.com/quicksort-partition-explained-a-step-by-step-array-example/", "name": "Quicksort Partition Explained: A Step-by-Step Array Example | PANKRI", "description": "Understand the Quicksort partition operation with a concrete array, pivot, pointer movement and pseudocode. Learn what the partition index means and why pivot choice matters.", "isPartOf": {"@id": "https://pankri.com/#website"}}, {"@type": "Article", "@id": "https://pankri.com/quicksort-partition-explained-a-step-by-step-array-example/#article", "headline": "Quicksort Partition Explained: A Step-by-Step Array Example", "description": "Understand the Quicksort partition operation with a concrete array, pivot, pointer movement and pseudocode. Learn what the partition index means and why pivot choice matters.", "mainEntityOfPage": {"@id": "https://pankri.com/quicksort-partition-explained-a-step-by-step-array-example/#webpage"}, "author": {"@type": "Organization", "name": "PANKRI", "url": "https://pankri.com/about/"}, "publisher": {"@type": "Organization", "name": "PANKRI", "url": "https://pankri.com/"}, "datePublished": "2026-11-03", "dateModified": "2026-11-03"}, {"@type": "BreadcrumbList", "@id": "https://pankri.com/quicksort-partition-explained-a-step-by-step-array-example/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PANKRI", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 2, "name": "Quicksort Partition Explained: A Step-by-Step Array Example", "item": "https://pankri.com/quicksort-partition-explained-a-step-by-step-array-example/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does partition sort the array?", "acceptedAnswer": {"@type": "Answer", "text": "No. It places values into partitions relative to a pivot. Quicksort recursively sorts the partitions afterward."}}, {"@type": "Question", "name": "Is the pivot always the final element?", "acceptedAnswer": {"@type": "Answer", "text": "No. The pivot strategy depends on the implementation. This walkthrough uses the last element for a Lomuto-style partition."}}, {"@type": "Question", "name": "What is the time complexity of one partition pass?", "acceptedAnswer": {"@type": "Answer", "text": "A partition pass scans its current subarray once, so it takes linear time in the subarray length."}}]}]}</script>
+</head>
+
+<body><a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="topbar">
+      <a class="brand" href="/" aria-label="PANKRI home">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span class="brand-word">PANKRI<span class="brand-dot">.</span></span>
+      </a>
+      <div class="topbar-divider" aria-hidden="true"></div>
+      <div class="product-name"><span class="product-icon" aria-hidden="true">⌘</span><span>Algorithm Lab</span></div>
+      <div class="topbar-spacer"></div>
+      <button class="theme-toggle" type="button" data-action="toggle-theme" aria-label="Switch color theme" title="Switch color theme"><span class="theme-icon" aria-hidden="true">☾</span></button>
+    </header>
+  <main id="main-content" class="article-shell">
+    <nav class="article-crumb" aria-label="Breadcrumb"><a href="/">Home</a> / Quicksort Partition Explained: A
+      Step-by-Step Array Example</nav>
+    <header class="article-hero">
+      <div class="article-kicker">PANKRI · COMPUTER SCIENCE GUIDE</div>
+      <h1>Quicksort Partition Explained: A Step-by-Step Array Example</h1>
+      <p>Partitioning is the key operation in Quicksort. It rearranges an array around a pivot so values on one side are
+        smaller and values on the other side are larger or equal, allowing the algorithm to solve smaller subproblems.
+      </p>
+      <div class="article-byline">An educational guide from PANKRI · Published November 3, 2026</div>
+    </header>
+    <div class="article-layout">
+      <article class="article-body">
+        <section id="partition-idea">
+          <h2>What does partition do?</h2>
+          <p>A partition routine chooses a pivot and rearranges values so that the pivot reaches a position consistent
+            with the selected partition rule. In a Lomuto-style partition, one common rule places values less than or
+            equal to the pivot before it and larger values after it. Other schemes, such as Hoare partitioning, use
+            different pointer rules and return a boundary rather than necessarily placing the pivot in its final sorted
+            position.</p>
+          <p>That distinction matters: partition variants are not interchangeable unless the surrounding Quicksort
+            recursion uses the matching boundaries.</p>
+        </section>
+        <section id="walkthrough">
+          <h2>Walk through one partition</h2>
+          <p>Consider the array <code>[9, 3, 7, 1, 8, 2, 5]</code> and choose the last value, <code>5</code>, as the
+            Lomuto pivot. Scan the array from left to right (excluding the pivot). Keep a boundary index for the region
+            known to contain values less than or equal to 5.</p>
+          <ol>
+            <li>Start with boundary <code>−1</code>.</li>
+            <li>See 9: it is greater than 5, so leave it in the right region.</li>
+            <li>See 3: it is at most 5; advance the boundary and swap 3 into the left region.</li>
+            <li>See 7 and 8: both are greater than 5, so continue.</li>
+            <li>See 1 and 2: advance the boundary and move each into the left region.</li>
+            <li>Finally swap the pivot 5 just after the left region.</li>
+          </ol>
+          <p>The resulting arrangement is <code>[3, 1, 2, 5, 8, 7, 9]</code>. The left partition contains values at most
+            5, the pivot is at index 3, and the right partition contains values greater than 5. The two partitions are
+            not yet internally sorted.</p>
+        </section>
+        <section id="pseudocode">
+          <h2>Lomuto partition pseudocode</h2>
+          <pre><code>function partition(array, low, high) {
+  const pivot = array[high];
+  let boundary = low - 1;
+
+  for (let scan = low; scan &lt; high; scan++) {
+    if (array[scan] &lt;= pivot) {
+      boundary++;
+      [array[boundary], array[scan]] =
+        [array[scan], array[boundary]];
+    }
+  }
+
+  [array[boundary + 1], array[high]] =
+    [array[high], array[boundary + 1]];
+  return boundary + 1;
+}</code></pre>
+          <p>This example uses the last element as pivot. Production implementations may choose a middle, random or
+            median-of-three pivot to reduce the chance of consistently poor partitions.</p>
+        </section>
+        <section id="complexity">
+          <h2>Why partition quality changes Quicksort performance</h2>
+          <p>Each partition scans a subarray, so one partition pass takes linear time in the size of that subarray. If
+            partitions are reasonably balanced, recursion has about logarithmic depth and Quicksort runs in
+            <code>O(n log n)</code) time on average. If each pivot repeatedly creates one empty partition and one partition of size n−1, recursion becomes deep and total work can reach <code>O(n²)</code>.
+          </p>
+          <p>Duplicate-heavy inputs also deserve attention. Three-way partitioning can group values equal to the pivot
+            and avoid repeatedly processing them as ordinary left/right elements.</p>
+        </section>
+        <section id="pitfalls">
+          <h2>Common partition mistakes</h2>
+          <ul>
+            <li>Using an inclusive or exclusive boundary inconsistently in recursive calls.</li>
+            <li>Mixing Lomuto and Hoare return-value conventions.</li>
+            <li>Forgetting that partitioning does not fully sort either side.</li>
+            <li>Assuming a pivot is always in its final position when using a partition scheme that only returns a split
+              boundary.</li>
+            <li>Ignoring recursion depth and worst-case inputs.</li>
+          </ul>
+        </section>
+        <section class="article-faq" id="faq">
+          <h2>Frequently asked questions</h2>
+          <details>
+            <summary>Does partition sort the array?</summary>
+            <p>No. It places values into partitions relative to a pivot. Quicksort recursively sorts the partitions
+              afterward.</p>
+          </details>
+          <details>
+            <summary>Is the pivot always the final element?</summary>
+            <p>No. The pivot strategy depends on the implementation. This walkthrough uses the last element for a
+              Lomuto-style partition.</p>
+          </details>
+          <details>
+            <summary>What is the time complexity of one partition pass?</summary>
+            <p>A partition pass scans its current subarray once, so it takes linear time in the subarray length.</p>
+          </details>
+        </section>
+        <div class="article-cta"><strong>Explore the concept interactively</strong>
+          <p>Use PANKRI Algorithm Lab to experiment with related algorithms and inspect how their operations work.</p><a
+            href="/">Open PANKRI Algorithm Lab →</a>
+        </div>
+        <p class="article-byline">This page is educational material. Examples are simplified to explain the underlying
+          concepts; verify implementation details for your specific programming language and use case.</p>
+      </article>
+      <aside class="article-aside"><strong>On this page</strong><a href="#partition-idea">Partition idea</a><a
+          href="#walkthrough">Step-by-step example</a><a href="#pseudocode">Pseudocode</a><a
+          href="#complexity">Complexity</a><a href="#pitfalls">Common mistakes</a><a href="/">Open Algorithm Lab →</a><a
+          href="/about/">About PANKRI</a></aside>
+    </div>
+  </main>
+  <footer class="trust-footer">
+    <div class="trust-footer-inner"><a class="trust-footer-brand" href="/">PANKRI · Algorithm Lab</a><a href="/">Tool
+        home</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy</a><a
+        href="/terms/">Terms</a><a href="/disclaimer/">Disclaimer</a><a
+        href="mailto:contact@pankri.com">contact@pankri.com</a><a href="https://in.linkedin.com/in/pankri"
+        target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      <p class="trust-footer-note">© 2026 PANKRI. Interactive computer science learning resources.</p>
+    </div>
+  </footer>
+  <script src="../assets/app.js" defer></script>
+</body>
+
+</html>

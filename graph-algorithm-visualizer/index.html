@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#101827">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="author" content="PANKRI">
+    <link rel="icon" href="../assets/favicon.png" type="image/png">
+    <link rel="icon" href="../assets/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="../assets/seo-pages.css">
+    <title>Graph Algorithm Visualizer: BFS, DFS and Dijkstra Explained | PANKRI</title>
+    <meta name="description"
+        content="Explore graph traversal and shortest paths with an interactive visualizer. Learn BFS, DFS and Dijkstra using nodes, edges, weights and step-by-step states.">
+    <link rel="canonical" href="https://pankri.com/graph-algorithm-visualizer/">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Graph Algorithm Visualizer: BFS, DFS and Dijkstra Explained">
+    <meta property="og:description"
+        content="Explore graph traversal and shortest paths with an interactive visualizer. Learn BFS, DFS and Dijkstra using nodes, edges, weights and step-by-step states.">
+    <meta property="og:url" content="https://pankri.com/graph-algorithm-visualizer/">
+    <meta name="twitter:card" content="summary">
+    <script
+        type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://pankri.com/graph-algorithm-visualizer/#webpage", "url": "https://pankri.com/graph-algorithm-visualizer/", "name": "Graph Algorithm Visualizer: BFS, DFS and Dijkstra Explained", "description": "Explore graph traversal and shortest paths with an interactive visualizer. Learn BFS, DFS and Dijkstra using nodes, edges, weights and step-by-step states.", "isPartOf": {"@id": "https://pankri.com/#website"}, "breadcrumb": {"@id": "https://pankri.com/graph-algorithm-visualizer/#breadcrumb"}}, {"@type": "BreadcrumbList", "@id": "https://pankri.com/graph-algorithm-visualizer/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PANKRI", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 2, "name": "Algorithm Lab", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 3, "name": "Graph Algorithm Visualizer: Explore BFS, DFS and Dijkstra", "item": "https://pankri.com/graph-algorithm-visualizer/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does BFS always find the shortest path?", "acceptedAnswer": {"@type": "Answer", "text": "BFS finds a path with the fewest edges in an unweighted graph. If edges have different costs, BFS does not generally minimize total weight."}}, {"@type": "Question", "name": "Can Dijkstra handle negative edge weights?", "acceptedAnswer": {"@type": "Answer", "text": "No. Dijkstra’s correctness requires non-negative edge weights. Bellman–Ford is one alternative when negative weights are present and negative cycles must be detected."}}, {"@type": "Question", "name": "What is the difference between BFS and DFS?", "acceptedAnswer": {"@type": "Answer", "text": "BFS explores level by level using a queue. DFS explores deeply along a branch using a stack or recursion. Their traversal order and use cases differ."}}]}]}</script>
+</head>
+
+<body><a class="skip-link" href="#main-content">Skip to content</a>
+     <header class="topbar">
+      <a class="brand" href="/" aria-label="PANKRI home">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span class="brand-word">PANKRI<span class="brand-dot">.</span></span>
+      </a>
+      <div class="topbar-divider" aria-hidden="true"></div>
+      <div class="product-name"><span class="product-icon" aria-hidden="true">⌘</span><span>Algorithm Lab</span></div>
+      <div class="topbar-spacer"></div>
+      <button class="theme-toggle" type="button" data-action="toggle-theme" aria-label="Switch color theme" title="Switch color theme"><span class="theme-icon" aria-hidden="true">☾</span></button>
+    </header>
+    <main id="main-content" class="site-shell seo-page">
+        <div class="seo-breadcrumb"><a href="/">Home</a> / Graph
+            Algorithm Visualizer: Explore BFS, DFS and Dijkstra</div>
+        <header class="seo-hero">
+            <div class="seo-kicker">PANKRI ALGORITHM LAB · INTERACTIVE GUIDE</div>
+            <h1>Graph Algorithm Visualizer: Explore BFS, DFS and Dijkstra</h1>
+            <p>Graphs model relationships between connected objects. Visualize how Breadth-First Search, Depth-First
+                Search and Dijkstra’s algorithm explore nodes and discover routes through a graph.</p><a class="seo-cta"
+                href="../?view=graphs#workspace">Open the interactive visualizer <span aria-hidden="true">→</span></a>
+            <div class="seo-meta">Free browser-based learning tool · No account required</div>
+        </header>
+        <div class="seo-layout">
+            <article class="seo-content">
+                <section id="topic1">
+                    <h2>What is a graph?</h2>
+                    <p>A graph consists of vertices (also called nodes) and edges that connect pairs of vertices. Edges
+                        may be directed or undirected, and they may carry weights such as distance, cost or time. Graphs
+                        are used to model road networks, computer networks, dependencies, social connections and state
+                        transitions.</p>
+                </section>
+                <section id="topic2">
+                    <h2>Breadth-First Search (BFS)</h2>
+                    <p>BFS explores a graph in layers. It starts at a source node, visits its immediate neighbors, then
+                        visits the next layer. A queue controls the order of exploration. In an unweighted graph, BFS
+                        can find a path with the fewest edges from the source to reachable nodes. Its time complexity is
+                        O(V + E) when adjacency lists are used.</p>
+                </section>
+                <section id="topic3">
+                    <h2>Depth-First Search (DFS)</h2>
+                    <p>DFS follows one branch as far as it can before backtracking. It can be implemented with recursion
+                        or an explicit stack. DFS is useful for reachability, connected components, cycle detection and
+                        topological sorting in directed acyclic graphs. With adjacency lists, its time complexity is O(V
+                        + E). DFS does not generally find a shortest path.</p>
+                </section>
+                <section id="topic4">
+                    <h2>Dijkstra’s shortest-path algorithm</h2>
+                    <p>Dijkstra’s algorithm computes shortest-path distances from a source in a graph with non-negative
+                        edge weights. It repeatedly selects the unsettled node with the smallest known tentative
+                        distance and relaxes its outgoing edges. A common implementation with a priority queue runs in
+                        O((V + E) log V), while simpler implementations can take O(V²). Dijkstra is not valid for graphs
+                        containing negative-weight edges.</p>
+                </section>
+                <section id="topic5">
+                    <h2>How to read the visualization</h2>
+                    <p>Choose a start node and run an algorithm. Watch nodes move through unvisited, frontier, current
+                        and visited states. For Dijkstra, inspect the tentative distance updates and the final
+                        predecessor path. The sample graph is an educational model; try changing the start node and
+                        compare traversal order.</p>
+                </section>
+                <div class="seo-callout"><strong>Try it yourself</strong>
+                    <p>Reading about an algorithm is only the first step. Open the PANKRI workspace, use a sample or
+                        custom input, and inspect the operations rather than relying on a static example.</p><a
+                        href="../?view=graphs#workspace">Launch the relevant workspace →</a>
+                </div>
+                <h2>Explore more in Algorithm Lab</h2>
+                <div class="seo-related"><a href="../sorting-algorithm-visualizer/"><strong>Sorting
+                            visualizer</strong><span>Trace comparisons and swaps in five sorting methods.</span></a><a
+                        href="../binary-search-visualizer/"><strong>Binary Search visualizer</strong><span>Inspect
+                            midpoint decisions on sorted data.</span></a><a
+                        href="../graph-algorithm-visualizer/"><strong>Graph algorithm visualizer</strong><span>Explore
+                            BFS, DFS and shortest paths.</span></a><a href="../data-structure-visualizer/"><strong>Data
+                            structure visualizer</strong><span>Practice stack, queue and linked-list
+                            operations.</span></a></div>
+                <section class="seo-faq">
+                    <h2>Frequently asked questions</h2>
+                    <details>
+                        <summary>Does BFS always find the shortest path?</summary>
+                        <p>BFS finds a path with the fewest edges in an unweighted graph. If edges have different costs,
+                            BFS does not generally minimize total weight.</p>
+                    </details>
+                    <details>
+                        <summary>Can Dijkstra handle negative edge weights?</summary>
+                        <p>No. Dijkstra’s correctness requires non-negative edge weights. Bellman–Ford is one
+                            alternative when negative weights are present and negative cycles must be detected.</p>
+                    </details>
+                    <details>
+                        <summary>What is the difference between BFS and DFS?</summary>
+                        <p>BFS explores level by level using a queue. DFS explores deeply along a branch using a stack
+                            or recursion. Their traversal order and use cases differ.</p>
+                    </details>
+                </section>
+            </article>
+            <aside class="seo-aside">
+                <h2>In this guide</h2><a href="#topic1">What is a graph?</a><a href="#topic2">Breadth-First Search
+                    (BFS)</a><a href="#topic3">Depth-First Search (DFS)</a><a href="#topic4">Dijkstra’s shortest-path
+                    algorithm</a><a href="#topic5">How to read the visualization</a><a
+                    href="../?view=graphs#workspace">Open interactive tool →</a>
+            </aside>
+        </div>
+    </main>
+    <footer class="seo-footer"><a href="../">Algorithm Lab</a><a href="https://pankri.com/">PANKRI Home</a><a
+            href="../about/">About</a><a href="../contact/">Contact</a><a href="../privacy-policy/">Privacy</a><a
+            href="../terms/">Terms</a><a href="../disclaimer/">Disclaimer</a><a
+            href="mailto:contact@pankri.com">contact@pankri.com</a><a href="https://in.linkedin.com/in/pankri"
+            target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <p>Educational explanations are provided for learning. Operation counts are illustrative and are not controlled
+            runtime benchmarks.</p>
+    </footer>
+    <script src="../assets/app.js" defer></script>
+</body>
+
+</html>

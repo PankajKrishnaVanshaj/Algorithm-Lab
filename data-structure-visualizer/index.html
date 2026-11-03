@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#101827">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="author" content="PANKRI">
+    <link rel="icon" href="../assets/favicon.png" type="image/png">
+    <link rel="icon" href="../assets/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="../assets/seo-pages.css">
+    <title>Data Structure Visualizer: Stack, Queue and Linked List Operations | PANKRI</title>
+    <meta name="description"
+        content="Learn Stack, Queue and Linked List operations with an interactive data structure visualizer. Explore push, pop, enqueue, dequeue, insertion and search.">
+    <link rel="canonical" href="https://pankri.com/data-structure-visualizer/">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Data Structure Visualizer: Stack, Queue and Linked List Operations">
+    <meta property="og:description"
+        content="Learn Stack, Queue and Linked List operations with an interactive data structure visualizer. Explore push, pop, enqueue, dequeue, insertion and search.">
+    <meta property="og:url" content="https://pankri.com/data-structure-visualizer/">
+    <meta name="twitter:card" content="summary">
+    <script
+        type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://pankri.com/data-structure-visualizer/#webpage", "url": "https://pankri.com/data-structure-visualizer/", "name": "Data Structure Visualizer: Stack, Queue and Linked List Operations", "description": "Learn Stack, Queue and Linked List operations with an interactive data structure visualizer. Explore push, pop, enqueue, dequeue, insertion and search.", "isPartOf": {"@id": "https://pankri.com/#website"}, "breadcrumb": {"@id": "https://pankri.com/data-structure-visualizer/#breadcrumb"}}, {"@type": "BreadcrumbList", "@id": "https://pankri.com/data-structure-visualizer/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PANKRI", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 2, "name": "Algorithm Lab", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 3, "name": "Data Structure Visualizer: Stack, Queue and Linked List", "item": "https://pankri.com/data-structure-visualizer/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between a stack and a queue?", "acceptedAnswer": {"@type": "Answer", "text": "A stack removes the newest item first (LIFO), while a queue removes the oldest item first (FIFO)."}}, {"@type": "Question", "name": "Are stack push and pop O(1)?", "acceptedAnswer": {"@type": "Answer", "text": "They are O(1) in common implementations when the stack has available capacity or uses a linked representation. Dynamic-array resizing can occasionally make an individual push more expensive, though append is amortized O(1)."}}, {"@type": "Question", "name": "Is a linked list faster than an array?", "acceptedAnswer": {"@type": "Answer", "text": "Neither is universally faster. Linked lists support O(1) insertion at a known node or at the head, but indexed access is O(n). Arrays provide O(1) indexed access and often better cache locality."}}]}]}</script>
+</head>
+
+<body><a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="PANKRI home">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span class="brand-word">PANKRI<span class="brand-dot">.</span></span>
+      </a>
+      <div class="topbar-divider" aria-hidden="true"></div>
+      <div class="product-name"><span class="product-icon" aria-hidden="true">⌘</span><span>Algorithm Lab</span></div>
+      <div class="topbar-spacer"></div>
+      <button class="theme-toggle" type="button" data-action="toggle-theme" aria-label="Switch color theme" title="Switch color theme"><span class="theme-icon" aria-hidden="true">☾</span></button>
+    </header>
+    <main id="main-content" class="site-shell seo-page">
+        <div class="seo-breadcrumb"><a href="/">Home</a> / Data
+            Structure Visualizer: Stack, Queue and Linked List</div>
+        <header class="seo-hero">
+            <div class="seo-kicker">PANKRI ALGORITHM LAB · INTERACTIVE GUIDE</div>
+            <h1>Data Structure Visualizer: Stack, Queue and Linked List</h1>
+            <p>Understand how data structures organize information by performing operations yourself. Explore Last-In,
+                First-Out stacks, First-In, First-Out queues and linked-list node relationships.</p><a class="seo-cta"
+                href="../?view=structures#workspace">Open the interactive visualizer <span
+                    aria-hidden="true">→</span></a>
+            <div class="seo-meta">Free browser-based learning tool · No account required</div>
+        </header>
+        <div class="seo-layout">
+            <article class="seo-content">
+                <section id="topic1">
+                    <h2>What is a data structure?</h2>
+                    <p>A data structure is a way to organize and manage data so operations can be performed efficiently.
+                        The right structure depends on how data is accessed, inserted, removed and searched. This lab
+                        focuses on three foundational linear structures.</p>
+                </section>
+                <section id="topic2">
+                    <h2>Stack: Last In, First Out</h2>
+                    <p>A stack follows LIFO order: the most recently added item is the first one removed. Push adds an
+                        item to the top, pop removes the top item, and peek reads the top without removing it. These
+                        operations are O(1) in a typical array-backed or linked implementation. Stacks are used in
+                        function calls, undo systems, parsing and depth-first search.</p>
+                </section>
+                <section id="topic3">
+                    <h2>Queue: First In, First Out</h2>
+                    <p>A queue follows FIFO order: the earliest inserted item is removed first. Enqueue adds an item at
+                        the rear, while dequeue removes an item from the front. A well-designed circular-buffer or
+                        linked implementation can perform both in O(1). Queues are used in task scheduling, buffering,
+                        breadth-first search and request processing.</p>
+                </section>
+                <section id="topic4">
+                    <h2>Singly linked list</h2>
+                    <p>A singly linked list contains nodes. Each node stores a value and a reference to the next node.
+                        Inserting at the head is O(1). Searching for a value is O(n). Appending is O(n) without a tail
+                        reference and can be O(1) when a tail reference is maintained. Deleting a value usually requires
+                        finding its previous node first.</p>
+                </section>
+                <section id="topic5">
+                    <h2>Use the interactive operations</h2>
+                    <p>Select Stack, Queue or Linked List in the lab. Enter a value and perform the available
+                        operations. Observe how the first, last, top, front or rear position changes. The linked-list
+                        workspace is a simplified conceptual model; it stores values in an array for display rather than
+                        exposing actual memory pointers.</p>
+                </section>
+                <div class="seo-callout"><strong>Try it yourself</strong>
+                    <p>Reading about an algorithm is only the first step. Open the PANKRI workspace, use a sample or
+                        custom input, and inspect the operations rather than relying on a static example.</p><a
+                        href="../?view=structures#workspace">Launch the relevant workspace →</a>
+                </div>
+                <h2>Explore more in Algorithm Lab</h2>
+                <div class="seo-related"><a href="../sorting-algorithm-visualizer/"><strong>Sorting
+                            visualizer</strong><span>Trace comparisons and swaps in five sorting methods.</span></a><a
+                        href="../binary-search-visualizer/"><strong>Binary Search visualizer</strong><span>Inspect
+                            midpoint decisions on sorted data.</span></a><a
+                        href="../graph-algorithm-visualizer/"><strong>Graph algorithm visualizer</strong><span>Explore
+                            BFS, DFS and shortest paths.</span></a><a href="../data-structure-visualizer/"><strong>Data
+                            structure visualizer</strong><span>Practice stack, queue and linked-list
+                            operations.</span></a></div>
+                <section class="seo-faq">
+                    <h2>Frequently asked questions</h2>
+                    <details>
+                        <summary>What is the difference between a stack and a queue?</summary>
+                        <p>A stack removes the newest item first (LIFO), while a queue removes the oldest item first
+                            (FIFO).</p>
+                    </details>
+                    <details>
+                        <summary>Are stack push and pop O(1)?</summary>
+                        <p>They are O(1) in common implementations when the stack has available capacity or uses a
+                            linked representation. Dynamic-array resizing can occasionally make an individual push more
+                            expensive, though append is amortized O(1).</p>
+                    </details>
+                    <details>
+                        <summary>Is a linked list faster than an array?</summary>
+                        <p>Neither is universally faster. Linked lists support O(1) insertion at a known node or at the
+                            head, but indexed access is O(n). Arrays provide O(1) indexed access and often better cache
+                            locality.</p>
+                    </details>
+                </section>
+            </article>
+            <aside class="seo-aside">
+                <h2>In this guide</h2><a href="#topic1">What is a data structure?</a><a href="#topic2">Stack: Last In,
+                    First Out</a><a href="#topic3">Queue: First In, First Out</a><a href="#topic4">Singly linked
+                    list</a><a href="#topic5">Use the interactive operations</a><a
+                    href="../?view=structures#workspace">Open interactive tool →</a>
+            </aside>
+        </div>
+    </main>
+    <footer class="seo-footer"><a href="../">Algorithm Lab</a><a href="https://pankri.com/">PANKRI Home</a><a
+            href="../about/">About</a><a href="../contact/">Contact</a><a href="../privacy-policy/">Privacy</a><a
+            href="../terms/">Terms</a><a href="../disclaimer/">Disclaimer</a><a
+            href="mailto:contact@pankri.com">contact@pankri.com</a><a href="https://in.linkedin.com/in/pankri"
+            target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <p>Educational explanations are provided for learning. Operation counts are illustrative and are not controlled
+            runtime benchmarks.</p>
+    </footer>
+    <script src="../assets/app.js" defer></script>
+</body>
+
+</html>
