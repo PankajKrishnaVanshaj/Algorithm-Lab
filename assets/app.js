@@ -254,11 +254,11 @@
 
   function compareSorting() {
     stopPlayback();
+    // Compare deterministic operation counts only. A single short browser timing
+    // is too noisy to be presented as a meaningful performance measurement.
     const rows = Object.keys(SORT_META).map((algorithm) => {
-      const start = performance.now();
       const run = createSortingRun(algorithm, state.sorting.values, false);
-      const elapsed = performance.now() - start;
-      return { algorithm, ...run.metrics, elapsed };
+      return { algorithm, ...run.metrics };
     });
     const minComparisons = Math.min(...rows.map((row) => row.comparisons));
     state.sorting.comparison = { rows, minComparisons };
@@ -267,13 +267,12 @@
   function renderBars(values, step, options = {}) {
     if (!values || !values.length) return '<div class="empty-state">No values to display.</div>';
     const max = Math.max(...values.map((v) => Math.abs(v)), 1);
-    const min = Math.min(...values.map((v) => Math.abs(v)), 0);
     const active = new Set(step?.active || []);
     const sorted = new Set(step?.sorted || []);
     const found = new Set(step?.found ? [step.foundIndex] : []);
     const low = typeof step?.low === 'number' ? step.low : 0;
     const high = typeof step?.high === 'number' ? step.high : values.length - 1;
-    return `<div class="bars-stage" role="img" aria-label="Array visualization with ${values.length} values">${values.map((value, index) => {
+    return `<div class="bars-stage" role="img" aria-label="Array visualization with ${values.length} values: ${values.join(', ')}">${values.map((value, index) => {
       const height = Math.max(6, Math.round((Math.abs(value) / max) * 83));
       const isDim = options.search && (index < low || index > high) && !active.has(index) && !found.has(index);
       const cls = ['bar-item', active.has(index) ? 'is-active' : '', index === step?.pivot ? 'is-pivot' : '', sorted.has(index) ? 'is-sorted' : '', found.has(index) ? 'is-found' : '', isDim ? 'is-dim' : ''].filter(Boolean).join(' ');
@@ -286,7 +285,7 @@
     return `<aside class="control-panel">
       <div class="panel-title">Configure your run <small>01 / SORTING</small></div>
       <div class="field"><label for="sort-algorithm">Algorithm</label><select id="sort-algorithm" data-action="set-sort-algorithm">${Object.entries(SORT_META).map(([key, meta]) => `<option value="${key}" ${sort.algorithm === key ? 'selected' : ''}>${meta.name}</option>`).join('')}</select><span class="hint">${SORT_META[sort.algorithm].description}</span></div>
-      <div class="field"><label for="sort-values">Input values <span class="field-label">(comma or space separated)</span></label><textarea id="sort-values" spellcheck="false" aria-describedby="sort-input-hint">${sort.values.join(', ')}</textarea><span class="hint" id="sort-input-hint">Up to 50 integers. Negative values and duplicates are supported.</span><div class="button-row"><button class="btn primary" type="button" data-action="apply-sort-values">Apply input</button><button class="btn" type="button" data-action="random-sort-values">Randomize</button></div></div>
+      <div class="field"><label for="sort-values">Input values <span class="field-label">(comma or space separated)</span></label><textarea id="sort-values" spellcheck="false" aria-describedby="sort-input-hint sort-values-error">${sort.values.join(', ')}</textarea><span class="hint" id="sort-input-hint">Up to 50 integers between −999,999 and 999,999. Negative values and duplicates are supported.</span><span class="field-error" id="sort-values-error" role="alert" hidden></span><div class="button-row"><button class="btn primary" type="button" data-action="apply-sort-values">Apply input</button><button class="btn" type="button" data-action="random-sort-values">Randomize</button></div></div>
       <div class="field"><label>Quick test cases</label><div class="button-row"><button class="btn" type="button" data-preset="sorted">Sorted</button><button class="btn" type="button" data-preset="reversed">Reversed</button><button class="btn" type="button" data-preset="duplicates">Duplicates</button></div></div>
       <div class="small-divider"></div>
       <div class="field"><label for="sort-size">Number of values: <strong id="sort-size-label">${sort.values.length}</strong></label><input id="sort-size" type="range" min="5" max="50" value="${clamp(sort.values.length, 5, 50)}" data-action="sort-size"><span class="hint">Changing the size generates a new random array.</span></div>
@@ -363,8 +362,8 @@
     const meta = isBinary ? { name: 'Binary Search', best: 'O(1)', average: 'O(log n)', worst: 'O(log n)', space: 'O(1)' } : { name: 'Linear Search', best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(1)' };
     return `<div class="workbench"><aside class="control-panel"><div class="panel-title">Configure your search <small>02 / SEARCHING</small></div>
       <div class="field"><label for="search-algorithm">Search algorithm</label><select id="search-algorithm" data-action="set-search-algorithm"><option value="linear" ${!isBinary ? 'selected' : ''}>Linear Search</option><option value="binary" ${isBinary ? 'selected' : ''}>Binary Search</option></select><span class="hint">${isBinary ? 'Repeatedly halves a sorted search range.' : 'Checks each element until a match is found or the list ends.'}</span></div>
-      <div class="field"><label for="search-values">Input values</label><textarea id="search-values" spellcheck="false">${search.values.join(', ')}</textarea><span class="hint">Up to 50 whole numbers. Binary Search uses a sorted working copy.</span></div>
-      <div class="field"><label for="search-target">Target value</label><input id="search-target" type="number" step="1" value="${search.target}"><span class="hint">Enter the integer you want to find.</span></div>
+      <div class="field"><label for="search-values">Input values</label><textarea id="search-values" spellcheck="false" aria-describedby="search-values-hint search-values-error">${search.values.join(', ')}</textarea><span class="hint" id="search-values-hint">Up to 50 integers between −999,999 and 999,999. Binary Search uses a sorted working copy.</span><span class="field-error" id="search-values-error" role="alert" hidden></span></div>
+      <div class="field"><label for="search-target">Target value</label><input id="search-target" type="number" min="-999999" max="999999" step="1" value="${search.target}" aria-describedby="search-target-hint search-target-error"><span class="hint" id="search-target-hint">Enter a whole number between −999,999 and 999,999.</span><span class="field-error" id="search-target-error" role="alert" hidden></span></div>
       <div class="button-row"><button class="btn primary" type="button" data-action="run-search">Run search</button><button class="btn" type="button" data-action="reset-search">Reset</button></div>
       ${search.notice ? `<div class="notice">${escapeHTML(search.notice)}</div>` : ''}
       <div class="callout"><strong>Important:</strong> Binary Search only works on ordered data. Your original input is preserved; the displayed working copy is sorted before the search.</div>
@@ -490,9 +489,9 @@
     const isLinked = type === 'linked';
     return `<aside class="control-panel"><div class="panel-title">Choose a structure <small>04 / DATA STRUCTURES</small></div>
       <div class="field"><label for="structure-type">Data structure</label><select id="structure-type" data-action="set-structure-type"><option value="stack" ${type === 'stack' ? 'selected' : ''}>Stack (LIFO)</option><option value="queue" ${type === 'queue' ? 'selected' : ''}>Queue (FIFO)</option><option value="linked" ${isLinked ? 'selected' : ''}>Singly Linked List</option></select></div>
-      <div class="field"><label for="structure-value">Value</label><input id="structure-value" type="number" step="1" value="99" placeholder="Enter an integer"></div>
+      <div class="field"><label for="structure-value">Value</label><input id="structure-value" type="number" min="-999999" max="999999" step="1" value="99" placeholder="Enter an integer" aria-describedby="structure-value-hint structure-value-error"><span class="hint" id="structure-value-hint">Whole numbers from −999,999 to 999,999.</span><span class="field-error" id="structure-value-error" role="alert" hidden></span></div>
       <div class="button-row">${type === 'stack' ? '<button class="btn primary" data-action="struct-push" type="button">＋ Push</button><button class="btn" data-action="struct-pop" type="button">− Pop</button>' : type === 'queue' ? '<button class="btn primary" data-action="struct-enqueue" type="button">＋ Enqueue</button><button class="btn" data-action="struct-dequeue" type="button">− Dequeue</button>' : '<button class="btn primary" data-action="struct-append" type="button">Append</button><button class="btn" data-action="struct-prepend" type="button">Prepend</button>'}</div>
-      ${isLinked ? '<div class="field"><label for="delete-value">Delete / find value</label><input id="delete-value" type="number" step="1" value="24"><div class="button-row"><button class="btn" data-action="struct-delete" type="button">Delete first match</button><button class="btn" data-action="struct-find" type="button">Find</button></div></div>' : ''}
+      ${isLinked ? '<div class="field"><label for="delete-value">Delete / find value</label><input id="delete-value" type="number" min="-999999" max="999999" step="1" value="24" aria-describedby="delete-value-hint delete-value-error"><span class="hint" id="delete-value-hint">Enter a whole number between −999,999 and 999,999.</span><span class="field-error" id="delete-value-error" role="alert" hidden></span><div class="button-row"><button class="btn" data-action="struct-delete" type="button">Delete first match</button><button class="btn" data-action="struct-find" type="button">Find</button></div></div>' : ''}
       <div class="small-divider"></div><div class="button-row"><button class="btn subtle" type="button" data-action="clear-structure">Clear structure</button><button class="btn" type="button" data-action="reset-structure">Restore sample</button></div>
       <div class="callout"><strong>${type === 'stack' ? 'LIFO' : type === 'queue' ? 'FIFO' : 'Sequential links'}:</strong> ${type === 'stack' ? 'Last In, First Out. Push and pop operate on the top.' : type === 'queue' ? 'First In, First Out. Enqueue at the rear and dequeue from the front.' : 'Each node stores a value and a reference to the next node.'}</div>
       <div class="tiny-note">This is an interactive model. Operations change the in-page structure only.</div>
@@ -508,7 +507,7 @@
     else visual = `<div class="structure-stage">${items.map((value, index) => `${index ? '<span class="struct-arrow" aria-hidden="true">→</span>' : ''}<div class="struct-cell">${value}<small>NODE ${index + 1}</small></div>`).join('')}<span class="struct-arrow" aria-hidden="true">→</span><div class="struct-cell">∅<small>NULL</small></div></div>`;
     const title = type === 'stack' ? 'Stack visualizer' : type === 'queue' ? 'Queue visualizer' : 'Linked list visualizer';
     const complexity = type === 'linked' ? [['Prepend', 'O(1)'], ['Append*', 'O(n)'], ['Search', 'O(n)'], ['Delete*', 'O(n)']] : type === 'stack' ? [['Push', 'O(1)'], ['Pop', 'O(1)'], ['Peek', 'O(1)'], ['Search', 'O(n)']] : [['Enqueue', 'O(1)'], ['Dequeue', 'O(1)'], ['Front', 'O(1)'], ['Search', 'O(n)']];
-    return `<div class="workbench">${structureControls()}<div class="visual-column"><section class="visual-panel"><div class="visual-header"><div><h3>${title}</h3><p>${items.length} element${items.length === 1 ? '' : 's'} currently stored.</p></div><span class="status-pill neutral">INTERACTIVE MODEL</span></div><div class="${type === 'stack' ? 'structure-stage' : ''}">${visual}</div><div class="operation-message"><strong>Last operation:</strong> ${escapeHTML(message)}</div></section>
+    return `<div class="workbench">${structureControls()}<div class="visual-column"><section class="visual-panel"><div class="visual-header"><div><h3>${title}</h3><p>${items.length} element${items.length === 1 ? '' : 's'} currently stored.</p></div><span class="status-pill neutral">INTERACTIVE MODEL</span></div><div class="${type === 'stack' ? 'structure-stage' : ''}">${visual}</div><div class="operation-message" role="status" aria-live="polite"><strong>Last operation:</strong> ${escapeHTML(message)}</div></section>
       <div class="metrics-grid">${metricCard('Elements', items.length, 'Current size')}${metricCard('First value', items.length ? items[0] : '—', type === 'queue' ? 'Front' : type === 'linked' ? 'Head' : 'Bottom')}${metricCard('Last value', items.length ? items[items.length - 1] : '—', type === 'queue' ? 'Rear' : type === 'linked' ? 'Tail' : 'Top')}${metricCard('Storage', 'Dynamic', 'Conceptual model')}</div>
       <div class="info-grid">${codePanel(type === 'stack' ? ['push(value):', '  add value to the top', '', 'pop():', '  remove and return the top value'] : type === 'queue' ? ['enqueue(value):', '  add value at the rear', '', 'dequeue():', '  remove and return the front value'] : ['append(value):', '  create a new node', '  connect the current tail to it', '', 'search(value):', '  follow next references until found'], -1)}${complexityPanel(complexity)}</div>
       ${type === 'linked' ? '<div class="callout"><strong>*Implementation detail:</strong> This model stores nodes in a JavaScript array for clarity. In a pointer-based singly linked list, append is O(n) without a tail reference and O(1) with one; deleting a value still requires locating its previous node.</div>' : ''}
@@ -532,24 +531,91 @@
   function renderWorkspace() {
     const workspace = $('#workspace');
     if (!workspace) return;
+
+    // Replacing the workspace DOM after an action otherwise drops keyboard
+    // focus. Remember the focused control by its stable ID/action and restore
+    // it to the newly rendered control after the update.
+    const active = document.activeElement;
+    const focusKey = active && workspace.contains(active) ? {
+      id: active.id || '',
+      action: active.dataset?.action || '',
+      preset: active.dataset?.preset || ''
+    } : null;
+
     workspace.setAttribute('aria-busy', 'false');
-    if (state.view === 'sorting') workspace.innerHTML = renderSort();
-    else if (state.view === 'searching') workspace.innerHTML = renderSearch();
-    else if (state.view === 'graphs') workspace.innerHTML = renderGraphs();
-    else workspace.innerHTML = renderStructureView();
+    let content;
+    if (state.view === 'sorting') content = renderSort();
+    else if (state.view === 'searching') content = renderSearch();
+    else if (state.view === 'graphs') content = renderGraphs();
+    else content = renderStructureView();
+    workspace.innerHTML = `<div id="workspace-error" class="notice error" role="alert" hidden></div>${content}`;
+
+    if (focusKey) {
+      let replacement = null;
+      if (focusKey.id) {
+        const candidate = document.getElementById(focusKey.id);
+        if (candidate && workspace.contains(candidate)) replacement = candidate;
+      }
+      if (!replacement && focusKey.action) {
+        replacement = $$('[data-action]', workspace).find((element) => element.dataset.action === focusKey.action) || null;
+      }
+      if (!replacement && focusKey.preset) {
+        replacement = $$('[data-preset]', workspace).find((element) => element.dataset.preset === focusKey.preset) || null;
+      }
+      if (replacement && !replacement.disabled && typeof replacement.focus === 'function') {
+        try { replacement.focus({ preventScroll: true }); }
+        catch (_) { replacement.focus(); }
+      } else {
+        // If the triggering control disappeared or became disabled at a
+        // boundary, move focus to the updated operation announcement.
+        const status = $('[role="status"]', workspace);
+        if (status && typeof status.focus === 'function') {
+          status.setAttribute('tabindex', '-1');
+          try { status.focus({ preventScroll: true }); }
+          catch (_) { status.focus(); }
+        }
+      }
+    }
   }
 
   function applySortValues() {
     try {
       const values = parseIntegerList($('#sort-values')?.value || '');
+      clearFieldError('sort-values');
       state.sorting.values = values; refreshSorting(); renderWorkspace();
     } catch (error) { showNotice(error.message, 'sort-values'); }
   }
 
+  function clearFieldError(fieldId) {
+    if (!fieldId) return;
+    const field = document.getElementById(fieldId);
+    const message = document.getElementById(`${fieldId}-error`);
+    if (field) field.removeAttribute('aria-invalid');
+    if (message) { message.textContent = ''; message.hidden = true; }
+  }
+
+  function clearWorkspaceError() {
+    const message = document.getElementById('workspace-error');
+    if (message) { message.textContent = ''; message.hidden = true; }
+  }
+
   function showNotice(message, fieldId) {
     const field = fieldId ? document.getElementById(fieldId) : null;
+    const fieldMessage = fieldId ? document.getElementById(`${fieldId}-error`) : null;
+    const target = fieldMessage || document.getElementById('workspace-error');
+    clearWorkspaceError();
+    if (target) { target.textContent = message; target.hidden = false; }
     if (field) { field.setAttribute('aria-invalid', 'true'); field.focus(); }
-    window.alert(message);
+  }
+
+  function parseBoundedInteger(raw, description = 'Enter a valid whole number.') {
+    const text = String(raw ?? '').trim();
+    if (!/^-?\d+$/.test(text)) throw new Error(description);
+    const value = Number(text);
+    if (!Number.isSafeInteger(value) || Math.abs(value) > 999999) {
+      throw new Error('Use a whole number between −999,999 and 999,999.');
+    }
+    return value;
   }
 
   function randomArray(size = state.sorting.values.length) {
@@ -557,40 +623,48 @@
   }
 
   function applySearchValues() {
-    try {
-      const values = parseIntegerList($('#search-values')?.value || '');
-      const targetText = $('#search-target')?.value ?? '';
-      if (targetText.trim() === '' || !Number.isSafeInteger(Number(targetText))) throw new Error('Enter a valid whole-number target.');
-      const target = Number(targetText);
-      if (Math.abs(target) > 999999) throw new Error('Use a target between −999,999 and 999,999.');
-      state.searching.values = values; state.searching.target = target;
-      state.searching.notice = state.searching.algorithm === 'binary' && values.some((value, index) => index > 0 && values[index - 1] > value) ? 'The input is not sorted. Binary Search will use a sorted working copy.' : '';
-      refreshSearch(); renderWorkspace();
-    } catch (error) { showNotice(error.message, 'search-values'); }
+    let values;
+    try { values = parseIntegerList($('#search-values')?.value || ''); }
+    catch (error) { showNotice(error.message, 'search-values'); return; }
+    let target;
+    try { target = parseBoundedInteger($('#search-target')?.value, 'Enter a valid whole-number target.'); }
+    catch (error) { showNotice(error.message, 'search-target'); return; }
+    clearFieldError('search-values'); clearFieldError('search-target');
+    state.searching.values = values; state.searching.target = target;
+    state.searching.notice = state.searching.algorithm === 'binary' && values.some((value, index) => index > 0 && values[index - 1] > value) ? 'The input is not sorted. Binary Search will use a sorted working copy.' : '';
+    refreshSearch(); renderWorkspace();
   }
 
   function applyStructureAction(action) {
     const model = state.structures;
     const valueInput = $('#structure-value');
-    const value = valueInput && valueInput.value.trim() !== '' ? Number(valueInput.value) : NaN;
+    const valueText = valueInput ? valueInput.value.trim() : '';
+    const value = /^-?\d+$/.test(valueText) ? Number(valueText) : NaN;
     const validValue = Number.isSafeInteger(value) && Math.abs(value) <= 999999;
     const maxSize = 25;
     const requireValue = ['struct-push', 'struct-enqueue', 'struct-append', 'struct-prepend'].includes(action);
     if (requireValue && !validValue) { showNotice('Enter a whole number between −999,999 and 999,999.', 'structure-value'); return; }
     if (requireValue && model.items.length >= maxSize) { showNotice(`This visualizer supports up to ${maxSize} nodes at a time.`); return; }
+    if (requireValue) clearFieldError('structure-value');
     if (action === 'struct-push') { model.items.push(value); model.message = `Pushed ${value} onto the stack.`; }
     else if (action === 'struct-pop') { model.message = model.items.length ? `Popped ${model.items.pop()} from the top.` : 'Cannot pop: the stack is empty.'; }
     else if (action === 'struct-enqueue') { model.items.push(value); model.message = `Enqueued ${value} at the rear of the queue.`; }
     else if (action === 'struct-dequeue') { model.message = model.items.length ? `Dequeued ${model.items.shift()} from the front.` : 'Cannot dequeue: the queue is empty.'; }
     else if (action === 'struct-append') { model.items.push(value); model.message = `Appended ${value} as the new tail node.`; }
     else if (action === 'struct-prepend') { model.items.unshift(value); model.message = `Prepended ${value} as the new head node.`; }
-    else if (action === 'struct-delete') {
-      const target = Number($('#delete-value')?.value);
-      if (!Number.isSafeInteger(target)) model.message = 'Enter a valid whole number to delete.';
-      else { const index = model.items.indexOf(target); if (index < 0) model.message = `${target} was not found; no node was removed.`; else { model.items.splice(index, 1); model.message = `Deleted the first node containing ${target}.`; } }
-    } else if (action === 'struct-find') {
-      const target = Number($('#delete-value')?.value); const index = model.items.indexOf(target);
-      model.message = index < 0 ? `${target} was not found in the list.` : `Found ${target} at position ${index + 1} (zero-based index ${index}).`;
+    else if (action === 'struct-delete' || action === 'struct-find') {
+      let target;
+      try { target = parseBoundedInteger($('#delete-value')?.value, 'Enter a whole number to find or delete.'); }
+      catch (error) { showNotice(error.message, 'delete-value'); return; }
+      clearFieldError('delete-value');
+      if (action === 'struct-delete') {
+        const index = model.items.indexOf(target);
+        if (index < 0) model.message = `${target} was not found; no node was removed.`;
+        else { model.items.splice(index, 1); model.message = `Deleted the first node containing ${target}.`; }
+      } else {
+        const index = model.items.indexOf(target);
+        model.message = index < 0 ? `${target} was not found in the list.` : `Found ${target} at position ${index + 1} (zero-based index ${index}).`;
+      }
     }
     renderWorkspace();
   }
@@ -613,6 +687,8 @@
       state.theme = state.theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = state.theme;
       try { localStorage.setItem('pankri-algorithm-lab-theme', state.theme); } catch (_) { /* Theme still works for this session. */ }
       const icon = $('.theme-icon'); if (icon) icon.textContent = state.theme === 'dark' ? '☀' : '☾';
+      button.setAttribute('aria-pressed', state.theme === 'dark' ? 'true' : 'false');
+      button.setAttribute('aria-label', state.theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
     } else if (action === 'apply-sort-values') applySortValues();
     else if (action === 'random-sort-values') { state.sorting.values = randomArray(); refreshSorting(); renderWorkspace(); }
     else if (action === 'reset-sort') { refreshSorting(); renderWorkspace(); }
@@ -647,6 +723,7 @@
   }
 
   function handleInput(event) {
+    if (event.target.id) clearFieldError(event.target.id);
     if (event.target.id === 'sort-size-label') return;
     if (event.target.id === 'sort-size') { const label = $('#sort-size-label'); if (label) label.textContent = event.target.value; }
   }
@@ -658,6 +735,8 @@
     } catch (_) { /* Continue with the default theme. */ }
     document.documentElement.dataset.theme = state.theme;
     const icon = $('.theme-icon'); if (icon) icon.textContent = state.theme === 'dark' ? '☀' : '☾';
+    const themeButton = $('.theme-toggle');
+    if (themeButton) { themeButton.setAttribute('aria-pressed', state.theme === 'dark' ? 'true' : 'false'); themeButton.setAttribute('aria-label', state.theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'); }
     refreshSorting(); refreshSearch(); refreshGraph();
     const requestedView = new URLSearchParams(window.location.search).get('view');
     if (requestedView && ['sorting', 'searching', 'graphs', 'structures'].includes(requestedView)) state.view = requestedView;

@@ -164,6 +164,13 @@
             color: #fff
         }
 
+        .bit-cell.active {
+            outline: 2px solid #e69a36;
+            outline-offset: 1px;
+            position: relative;
+            z-index: 1
+        }
+
         .bit-demo input {
             max-width: 260px
         }
@@ -221,19 +228,16 @@
     <meta property="og:url" content="https://pankri.com/how-a-bloom-filter-works-definitely-not-or-maybe/">
     <meta name="twitter:card" content="summary">
     <script
-        type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://pankri.com/how-a-bloom-filter-works-definitely-not-or-maybe/#webpage", "url": "https://pankri.com/how-a-bloom-filter-works-definitely-not-or-maybe/", "name": "How a Bloom Filter Works: Definitely Not or Maybe? Interactive Demo | PANKRI", "description": "Understand Bloom Filters with an interactive browser demo. Learn bit arrays, hash functions, false positives, false negatives, memory trade-offs and common use cases.", "isPartOf": {"@id": "https://pankri.com/#website"}}, {"@type": "Article", "@id": "https://pankri.com/how-a-bloom-filter-works-definitely-not-or-maybe/#article", "headline": "How a Bloom Filter Says “Definitely Not” or “Maybe”", "description": "Understand Bloom Filters with an interactive browser demo. Learn bit arrays, hash functions, false positives, false negatives, memory trade-offs and common use cases.", "mainEntityOfPage": {"@id": "https://pankri.com/how-a-bloom-filter-works-definitely-not-or-maybe/#webpage"}, "author": {"@type": "Organization", "name": "PANKRI", "url": "https://pankri.com/about/"}, "publisher": {"@type": "Organization", "name": "PANKRI", "url": "https://pankri.com/"}, "datePublished": "2026-11-03", "dateModified": "2026-11-03"}, {"@type": "BreadcrumbList", "@id": "https://pankri.com/how-a-bloom-filter-works-definitely-not-or-maybe/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PANKRI", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 2, "name": "How a Bloom Filter Says “Definitely Not” or “Maybe”", "item": "https://pankri.com/how-a-bloom-filter-works-definitely-not-or-maybe/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can a Bloom Filter say an item is definitely present?", "acceptedAnswer": {"@type": "Answer", "text": "No. A standard Bloom Filter returns either definitely absent or possibly present. A positive answer may be a false positive."}}, {"@type": "Question", "name": "Can a standard Bloom Filter have false negatives?", "acceptedAnswer": {"@type": "Answer", "text": "Not in the usual insertion-only design when the same hash functions and parameters are used consistently. Deletion or implementation errors can change that guarantee."}}, {"@type": "Question", "name": "Can I delete an item from a Bloom Filter?", "acceptedAnswer": {"@type": "Answer", "text": "Not safely from a basic bit-array Bloom Filter. Counting Bloom Filters use counters to support deletion but require more memory and careful handling."}}, {"@type": "Question", "name": "Does the demo store my words on a server?", "acceptedAnswer": {"@type": "Answer", "text": "No. This demonstration runs in the browser and does not send the entered words to a PANKRI application server."}}]}]}</script>
+        type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://pankri.com/how-a-bloom-filter-works-definitely-not-or-maybe/#webpage", "url": "https://pankri.com/how-a-bloom-filter-works-definitely-not-or-maybe/", "name": "How a Bloom Filter Works: Definitely Not or Maybe? Interactive Demo | PANKRI", "description": "Understand Bloom Filters with an interactive browser demo. Learn bit arrays, hash functions, false positives, false negatives, memory trade-offs and common use cases.", "isPartOf": {"@id": "https://pankri.com/#website"}}, {"@type": "Article", "@id": "https://pankri.com/how-a-bloom-filter-works-definitely-not-or-maybe/#article", "headline": "How a Bloom Filter Says “Definitely Not” or “Maybe”", "description": "Understand Bloom Filters with an interactive browser demo. Learn bit arrays, hash functions, false positives, false negatives, memory trade-offs and common use cases.", "mainEntityOfPage": {"@id": "https://pankri.com/how-a-bloom-filter-works-definitely-not-or-maybe/#webpage"}, "author": {"@type": "Organization", "name": "PANKRI", "url": "https://pankri.com/about/"}, "publisher": {"@type": "Organization", "name": "PANKRI", "url": "https://pankri.com/"}, "datePublished": "2026-11-03", "dateModified": "2026-11-12"}, {"@type": "BreadcrumbList", "@id": "https://pankri.com/how-a-bloom-filter-works-definitely-not-or-maybe/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PANKRI", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 2, "name": "How a Bloom Filter Says “Definitely Not” or “Maybe”", "item": "https://pankri.com/how-a-bloom-filter-works-definitely-not-or-maybe/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can a Bloom Filter say an item is definitely present?", "acceptedAnswer": {"@type": "Answer", "text": "No. A standard Bloom Filter returns either definitely absent or possibly present. A positive answer may be a false positive."}}, {"@type": "Question", "name": "Can a standard Bloom Filter have false negatives?", "acceptedAnswer": {"@type": "Answer", "text": "Not in the usual insertion-only design when the same hash functions and parameters are used consistently. Deletion or implementation errors can change that guarantee."}}, {"@type": "Question", "name": "Can I delete an item from a Bloom Filter?", "acceptedAnswer": {"@type": "Answer", "text": "Not safely from a basic bit-array Bloom Filter. Counting Bloom Filters use counters to support deletion but require more memory and careful handling."}}, {"@type": "Question", "name": "Does the demo store my words on a server?", "acceptedAnswer": {"@type": "Answer", "text": "No. This demonstration runs in the browser and does not send the entered words to a PANKRI application server."}}]}]}</script>
 </head>
 
 <body><a class="skip-link" href="#main-content">Skip to content</a>
-    <header class="topbar">
-      <a class="brand" href="/" aria-label="PANKRI home">
-        <span class="brand-mark" aria-hidden="true">P</span>
-        <span class="brand-word">PANKRI<span class="brand-dot">.</span></span>
-      </a>
-      <div class="topbar-divider" aria-hidden="true"></div>
-      <div class="product-name"><span class="product-icon" aria-hidden="true">⌘</span><span>Algorithm Lab</span></div>
-      <div class="topbar-spacer"></div>
-      <button class="theme-toggle" type="button" data-action="toggle-theme" aria-label="Switch color theme" title="Switch color theme"><span class="theme-icon" aria-hidden="true">☾</span></button>
+    <header class="topbar"><a class="brand" href="/" aria-label="PANKRI home"><span class="brand-mark"
+                aria-hidden="true">P</span><span class="brand-word">PANKRI<span class="brand-dot">.</span></span></a>
+        <div class="topbar-divider" aria-hidden="true"></div><a class="product-name" href="/">Algorithm Lab</a>
+        <div class="topbar-spacer"></div><a class="top-link" href="/">Open visualizer ↗</a><button class="theme-toggle"
+            type="button" data-action="toggle-theme" aria-label="Switch color theme" title="Switch color theme"><span
+                class="theme-icon" aria-hidden="true">☾</span></button>
     </header>
     <main id="main-content" class="article-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><a href="/">Home</a> / How a Bloom Filter Says “Definitely
@@ -314,18 +318,22 @@
                     <p>Insert words into a small bit array, then test whether a word may be present. This learning demo
                         uses three deterministic hash functions and is not intended for security or production use.</p>
                     <label for="bloom-word">Word to insert or test</label>
-                    <p><input id="bloom-word" type="text" value="pankri" maxlength="40"></p>
+                    <p><input id="bloom-word" type="text" value="pankri" maxlength="40" autocomplete="off"
+                            aria-describedby="bloom-word-hint"></p>
+                    <p id="bloom-word-hint" class="demo-note">Enter 1–40 characters. The demo uses the same three hash
+                        positions when inserting and checking a word.</p>
                     <p><button type="button" id="bloom-add">Insert word</button> <button type="button"
                             id="bloom-check">Check word</button> <button type="button" id="bloom-reset">Reset
                             filter</button></p>
-                    <div class="bit-grid" id="bloom-bits" aria-label="Bloom filter bit array"></div>
+                    <div class="bit-grid" id="bloom-bits" role="group"
+                        aria-label="Bloom Filter bit array with 32 positions"></div>
                     <p id="bloom-result" aria-live="polite" class="demo-note">The filter starts empty. Insert a value to
                         set its bits.</p>
                     <p class="demo-note">A negative result is definitive for this filter instance. A positive result
                         means “possibly present,” not “definitely present.”</p>
                 </div>
                 <script>
-                    (() => { const size = 32, bits = new Array(size).fill(0), grid = document.getElementById('bloom-bits'), input = document.getElementById('bloom-word'), result = document.getElementById('bloom-result'); function hashes(s) { let h1 = 2166136261 >>> 0, h2 = 0x9e3779b9; for (let i = 0; i < s.length; i++) { h1 ^= s.charCodeAt(i); h1 = Math.imul(h1, 16777619) >>> 0; h2 = (Math.imul(h2 ^ s.charCodeAt(i), 0x5bd1e995)) >>> 0; } return [h1 % size, h2 % size, (h1 + 2 * h2 + 17) % size]; } function draw(active = []) { grid.innerHTML = ''; bits.forEach((b, i) => { const el = document.createElement('span'); el.className = 'bit-cell' + (b ? ' on' : ''); el.textContent = b; el.title = 'Bit ' + i; grid.appendChild(el); }); } function word() { const v = input.value.trim(); if (!v) { result.textContent = 'Enter a word first.'; return null; } return v; } document.getElementById('bloom-add').addEventListener('click', () => { const v = word(); if (!v) return; const ix = hashes(v); ix.forEach(i => bits[i] = 1); draw(ix); result.textContent = 'Inserted “' + v + '”. Bit positions set: ' + ix.join(', ') + '.'; }); document.getElementById('bloom-check').addEventListener('click', () => { const v = word(); if (!v) return; const ix = hashes(v), found = ix.every(i => bits[i] === 1); draw(ix); result.textContent = found ? 'Possibly present: all required bits are set. This may still be a false positive.' : 'Definitely not present: at least one required bit is zero.'; }); document.getElementById('bloom-reset').addEventListener('click', () => { bits.fill(0); draw(); result.textContent = 'Filter cleared.'; }); draw(); })();
+                    (() => { const size = 32, bits = new Array(size).fill(0), grid = document.getElementById('bloom-bits'), input = document.getElementById('bloom-word'), result = document.getElementById('bloom-result'); function hashes(s) { let h1 = 2166136261 >>> 0, h2 = 0x9e3779b9; for (let i = 0; i < s.length; i++) { h1 ^= s.charCodeAt(i); h1 = Math.imul(h1, 16777619) >>> 0; h2 = (Math.imul(h2 ^ s.charCodeAt(i), 0x5bd1e995)) >>> 0; } return [h1 % size, h2 % size, (h1 + 2 * h2 + 17) % size]; } function draw(active = []) { grid.innerHTML = ''; const activeSet = new Set(active); bits.forEach((b, i) => { const el = document.createElement('span'); el.className = 'bit-cell' + (b ? ' on' : '') + (activeSet.has(i) ? ' active' : ''); el.textContent = b; el.title = 'Bit ' + i + (activeSet.has(i) ? ' — hash position used in the latest operation' : ''); el.setAttribute('aria-label', 'Bit ' + i + ': ' + (b ? 'set' : 'clear') + (activeSet.has(i) ? ', active hash position' : '')); grid.appendChild(el); }); } function word() { const v = input.value.trim(); if (!v) { result.textContent = 'Enter a word first.'; return null; } return v; } document.getElementById('bloom-add').addEventListener('click', () => { const v = word(); if (!v) return; const ix = hashes(v); ix.forEach(i => bits[i] = 1); draw(ix); result.textContent = 'Inserted “' + v + '”. Bit positions set: ' + ix.join(', ') + '.'; }); document.getElementById('bloom-check').addEventListener('click', () => { const v = word(); if (!v) return; const ix = hashes(v), found = ix.every(i => bits[i] === 1); draw(ix); result.textContent = found ? 'Possibly present: all required bits are set. This may still be a false positive.' : 'Definitely not present: at least one required bit is zero.'; }); document.getElementById('bloom-reset').addEventListener('click', () => { bits.fill(0); draw(); result.textContent = 'Filter cleared.'; }); draw(); })();
                 </script>
                 <section class="article-faq" id="faq">
                     <h2>Frequently asked questions</h2>
@@ -369,12 +377,11 @@
         <div class="trust-footer-inner"><a class="trust-footer-brand" href="/">PANKRI · Algorithm Lab</a><a
                 href="/">Tool home</a><a href="/about/">About</a><a href="/contact/">Contact</a><a
                 href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a><a href="/disclaimer/">Disclaimer</a><a
-                href="mailto:contact@pankri.com">contact@pankri.com</a><a href="https://in.linkedin.com/in/pankri"
-                target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+                href="mailto:contact@pankri.com">contact@pankri.com</a>
             <p class="trust-footer-note">© 2026 PANKRI. Interactive computer science learning resources.</p>
         </div>
     </footer>
-    <script src="../assets/app.js" defer></script>
+    <script src="../assets/site.js" defer></script>
 </body>
 
 </html>
