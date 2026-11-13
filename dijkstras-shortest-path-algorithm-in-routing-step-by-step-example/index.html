@@ -1,344 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#101827">
-  <title>Dijkstra's Shortest Path Algorithm: Step-by-Step Routing Example | PANKRI</title>
-  <meta name="description"
-    content="Learn Dijkstra's shortest path algorithm with a weighted graph example, relaxation steps, priority queue concept, complexity and its limitations with negative edge weights.">
-  <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="author" content="PANKRI">
-  <link rel="canonical" href="https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/">
-  <link rel="icon" href="../assets/favicon.png" type="image/png">
-  <link rel="icon" href="../assets/favicon.ico" sizes="any">
-  <link rel="stylesheet" href="../assets/styles.css">
-  <link rel="stylesheet" href="../assets/seo-pages.css">
-  <style>
-    .article-shell {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 30px 22px 70px
-    }
-
-    .article-crumb {
-      font-size: .9rem;
-      color: var(--muted, #64748b);
-      margin: 12px 0 26px
-    }
-
-    .article-crumb a {
-      color: inherit
-    }
-
-    .article-hero {
-      padding: clamp(28px, 5vw, 56px);
-      border: 1px solid var(--line, #dbe2ea);
-      border-radius: 24px;
-      background: linear-gradient(135deg, rgba(39, 110, 241, .09), rgba(17, 185, 129, .05));
-      margin-bottom: 30px
-    }
-
-    .article-kicker {
-      font-size: .78rem;
-      font-weight: 800;
-      letter-spacing: .13em;
-      text-transform: uppercase;
-      color: #2873d8
-    }
-
-    .article-hero h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      line-height: 1.08;
-      letter-spacing: -.04em;
-      margin: .7rem 0 1rem
-    }
-
-    .article-hero p {
-      font-size: 1.12rem;
-      max-width: 800px;
-      line-height: 1.75;
-      color: var(--muted, #64748b)
-    }
-
-    .article-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 260px;
-      gap: 38px
-    }
-
-    .article-body {
-      min-width: 0;
-      line-height: 1.8
-    }
-
-    .article-body h2 {
-      margin-top: 2.3rem;
-      line-height: 1.25;
-      letter-spacing: -.02em
-    }
-
-    .article-body h3 {
-      margin-top: 1.6rem
-    }
-
-    .article-body pre {
-      overflow: auto;
-      background: #101827;
-      color: #e5edf8;
-      padding: 18px;
-      border-radius: 12px;
-      line-height: 1.6
-    }
-
-    .article-body code {
-      font-family: ui-monospace, SFMono-Regular, Consolas, monospace
-    }
-
-    .article-body table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0
-    }
-
-    .article-body th,
-    .article-body td {
-      border: 1px solid var(--line, #dbe2ea);
-      padding: 10px;
-      text-align: left
-    }
-
-    .article-aside {
-      align-self: start;
-      position: sticky;
-      top: 22px;
-      border: 1px solid var(--line, #dbe2ea);
-      border-radius: 16px;
-      padding: 18px
-    }
-
-    .article-aside a {
-      display: block;
-      padding: 7px 0;
-      color: var(--link, #2563eb)
-    }
-
-    .article-cta {
-      padding: 20px;
-      border-radius: 16px;
-      background: rgba(37, 99, 235, .08);
-      margin: 26px 0
-    }
-
-    .article-cta a {
-      font-weight: 800
-    }
-
-    .bit-demo {
-      border: 1px solid var(--line, #dbe2ea);
-      border-radius: 16px;
-      padding: 18px;
-      margin: 22px 0
-    }
-
-    .bit-grid {
-      display: grid;
-      grid-template-columns: repeat(16, minmax(22px, 1fr));
-      gap: 5px;
-      margin: 14px 0
-    }
-
-    .bit-cell {
-      aspect-ratio: 1;
-      border-radius: 6px;
-      background: #e7edf5;
-      color: #344256;
-      display: grid;
-      place-items: center;
-      font: 700 .78rem ui-monospace, monospace
-    }
-
-    .bit-cell.on {
-      background: #2563eb;
-      color: #fff
-    }
-
-    .bit-demo input {
-      max-width: 260px
-    }
-
-    .bit-demo button {
-      padding: 9px 14px;
-      border: 0;
-      border-radius: 9px;
-      background: #2563eb;
-      color: #fff;
-      font-weight: 700;
-      cursor: pointer
-    }
-
-    .demo-note {
-      color: var(--muted, #64748b);
-      font-size: .9rem
-    }
-
-    .article-faq details {
-      border-top: 1px solid var(--line, #dbe2ea);
-      padding: 14px 0
-    }
-
-    .article-faq summary {
-      font-weight: 750;
-      cursor: pointer
-    }
-
-    .article-byline {
-      font-size: .88rem;
-      color: var(--muted, #64748b)
-    }
-
-    @media(max-width:850px) {
-      .article-layout {
-        grid-template-columns: 1fr
-      }
-
-      .article-aside {
-        position: static;
-        order: -1
-      }
-
-      .bit-grid {
-        grid-template-columns: repeat(8, minmax(22px, 1fr))
-      }
-    }
-  </style>
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="PANKRI">
-  <meta property="og:title" content="Dijkstra's Shortest Path Algorithm: A Step-by-Step Example">
-  <meta property="og:description"
-    content="Learn Dijkstra's shortest path algorithm with a weighted graph example, relaxation steps, priority queue concept, complexity and its limitations with negative edge weights.">
-  <meta property="og:url"
-    content="https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/">
-  <meta name="twitter:card" content="summary">
-  <script
-    type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/#webpage", "url": "https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/", "name": "Dijkstra's Shortest Path Algorithm: Step-by-Step Routing Example | PANKRI", "description": "Learn Dijkstra's shortest path algorithm with a weighted graph example, relaxation steps, priority queue concept, complexity and its limitations with negative edge weights.", "isPartOf": {"@id": "https://pankri.com/#website"}}, {"@type": "Article", "@id": "https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/#article", "headline": "Dijkstra's Shortest Path Algorithm: A Step-by-Step Example", "description": "Learn Dijkstra's shortest path algorithm with a weighted graph example, relaxation steps, priority queue concept, complexity and its limitations with negative edge weights.", "mainEntityOfPage": {"@id": "https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/#webpage"}, "author": {"@type": "Organization", "name": "PANKRI", "url": "https://pankri.com/about/"}, "publisher": {"@type": "Organization", "name": "PANKRI", "url": "https://pankri.com/"}, "datePublished": "2026-11-03", "dateModified": "2026-11-03"}, {"@type": "BreadcrumbList", "@id": "https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PANKRI", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 2, "name": "Dijkstra's Shortest Path Algorithm: A Step-by-Step Example", "item": "https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does Dijkstra work with negative weights?", "acceptedAnswer": {"@type": "Answer", "text": "No. Dijkstra relies on non-negative edge weights. Negative-weight shortest paths require a different algorithm, such as Bellman–Ford."}}, {"@type": "Question", "name": "What does relaxation do?", "acceptedAnswer": {"@type": "Answer", "text": "It checks whether reaching a neighbor through the current vertex gives a shorter route. If so, it updates the neighbor distance and predecessor."}}, {"@type": "Question", "name": "Does Dijkstra find one path or all distances?", "acceptedAnswer": {"@type": "Answer", "text": "The single-source version computes shortest distances to all reachable vertices. Keeping predecessor information lets the program reconstruct a shortest path to a selected destination."}}]}]}</script>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="#101827" name="theme-color"/>
+<title>Dijkstra's Shortest Path Algorithm: Step-by-Step Routing Example | PANKRI</title><meta content="Learn Dijkstra's shortest path algorithm with a weighted graph example, relaxation steps, priority queue concept, complexity and its limitations with negative edge weights." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="PANKRI" name="author"/>
+<link href="https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/" rel="canonical"/><link href="../assets/favicon.png" rel="icon" type="image/png"/><link href="../assets/favicon.ico" rel="icon" sizes="any"/><link href="../assets/styles.css" rel="stylesheet"/><link href="../assets/seo-pages.css" rel="stylesheet"/>
+<style>
+.article-shell{max-width:1120px;margin:0 auto;padding:30px 22px 70px}.article-crumb{font-size:.9rem;color:var(--muted,#64748b);margin:12px 0 26px}.article-crumb a{color:inherit}.article-hero{padding:clamp(28px,5vw,56px);border:1px solid var(--line,#dbe2ea);border-radius:24px;background:linear-gradient(135deg,rgba(39,110,241,.09),rgba(17,185,129,.05));margin-bottom:30px}.article-kicker{font-size:.78rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#2873d8}.article-hero h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.08;letter-spacing:-.04em;margin:.7rem 0 1rem}.article-hero p{font-size:1.12rem;max-width:800px;line-height:1.75;color:var(--muted,#64748b)}.article-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:38px}.article-body{min-width:0;line-height:1.8}.article-body h2{margin-top:2.3rem;line-height:1.25;letter-spacing:-.02em}.article-body h3{margin-top:1.6rem}.article-body pre{overflow:auto;background:#101827;color:#e5edf8;padding:18px;border-radius:12px;line-height:1.6}.article-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.article-body table{width:100%;border-collapse:collapse;margin:20px 0}.article-body th,.article-body td{border:1px solid var(--line,#dbe2ea);padding:10px;text-align:left}.article-aside{align-self:start;position:sticky;top:22px;border:1px solid var(--line,#dbe2ea);border-radius:16px;padding:18px}.article-aside a{display:block;padding:7px 0;color:var(--link,#2563eb)}.article-cta{padding:20px;border-radius:16px;background:rgba(37,99,235,.08);margin:26px 0}.article-cta a{font-weight:800}.bit-demo{border:1px solid var(--line,#dbe2ea);border-radius:16px;padding:18px;margin:22px 0}.bit-grid{display:grid;grid-template-columns:repeat(16,minmax(22px,1fr));gap:5px;margin:14px 0}.bit-cell{aspect-ratio:1;border-radius:6px;background:#e7edf5;color:#344256;display:grid;place-items:center;font:700 .78rem ui-monospace,monospace}.bit-cell.on{background:#2563eb;color:#fff}.bit-demo input{max-width:260px}.bit-demo button{padding:9px 14px;border:0;border-radius:9px;background:#2563eb;color:#fff;font-weight:700;cursor:pointer}.demo-note{color:var(--muted,#64748b);font-size:.9rem}.article-faq details{border-top:1px solid var(--line,#dbe2ea);padding:14px 0}.article-faq summary{font-weight:750;cursor:pointer}.article-byline{font-size:.88rem;color:var(--muted,#64748b)}@media(max-width:850px){.article-layout{grid-template-columns:1fr}.article-aside{position:static;order:-1}.bit-grid{grid-template-columns:repeat(8,minmax(22px,1fr))}}
+</style>
+<meta content="article" property="og:type"/><meta content="PANKRI" property="og:site_name"/><meta content="Dijkstra's Shortest Path Algorithm: A Step-by-Step Example" property="og:title"/><meta content="Learn Dijkstra's shortest path algorithm with a weighted graph example, relaxation steps, priority queue concept, complexity and its limitations with negative edge weights." property="og:description"/><meta content="https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/" property="og:url"/><meta content="summary" name="twitter:card"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/#webpage","url":"https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/","name":"Dijkstra's Shortest Path Algorithm: Step-by-Step Routing Example | PANKRI","description":"Learn Dijkstra's shortest path algorithm with a weighted graph example, relaxation steps, priority queue concept, complexity and its limitations with negative edge weights.","isPartOf":{"@id":"https://pankri.com/#website"},"author":{"@type":"Person","name":"Pankaj KrishnaVanshaj","url":"https://pankri.com/author/pankaj-krishnavanshaj/","jobTitle":"Web developer","alumniOf":{"@type":"CollegeOrUniversity","name":"Chhatrapati Shahu Ji Maharaj University, Kanpur"}},"dateModified":"2026-11-13"},{"@type":"Article","@id":"https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/#article","headline":"Dijkstra's Shortest Path Algorithm: A Step-by-Step Example","description":"Learn Dijkstra's shortest path algorithm with a weighted graph example, relaxation steps, priority queue concept, complexity and its limitations with negative edge weights.","mainEntityOfPage":{"@id":"https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/#webpage"},"author":{"@type":"Person","name":"Pankaj KrishnaVanshaj","url":"https://pankri.com/author/pankaj-krishnavanshaj/","jobTitle":"Web developer","alumniOf":{"@type":"CollegeOrUniversity","name":"Chhatrapati Shahu Ji Maharaj University, Kanpur"}},"publisher":{"@type":"Organization","name":"PANKRI","url":"https://pankri.com/"},"datePublished":"2026-11-03","dateModified":"2026-11-13"},{"@type":"BreadcrumbList","@id":"https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"PANKRI","item":"https://pankri.com/"},{"@type":"ListItem","position":2,"name":"Dijkstra's Shortest Path Algorithm: A Step-by-Step Example","item":"https://pankri.com/dijkstras-shortest-path-algorithm-in-routing-step-by-step-example/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Dijkstra work with negative weights?","acceptedAnswer":{"@type":"Answer","text":"No. Dijkstra relies on non-negative edge weights. Negative-weight shortest paths require a different algorithm, such as Bellman–Ford."}},{"@type":"Question","name":"What does relaxation do?","acceptedAnswer":{"@type":"Answer","text":"It checks whether reaching a neighbor through the current vertex gives a shorter route. If so, it updates the neighbor distance and predecessor."}},{"@type":"Question","name":"Does Dijkstra find one path or all distances?","acceptedAnswer":{"@type":"Answer","text":"The single-source version computes shortest distances to all reachable vertices. Keeping predecessor information lets the program reconstruct a shortest path to a selected destination."}}]}]}</script>
 </head>
-
 <body><a class="skip-link" href="#main-content">Skip to content</a>
-  <header class="topbar"><a class="brand" href="/" aria-label="PANKRI home"><span class="brand-mark"
-        aria-hidden="true">P</span><span class="brand-word">PANKRI<span class="brand-dot">.</span></span></a>
-    <div class="topbar-divider" aria-hidden="true"></div><a class="product-name" href="/">Algorithm Lab</a>
-    <div class="topbar-spacer"></div><a class="top-link" href="/">Open visualizer ↗</a><button class="theme-toggle"
-      type="button" data-action="toggle-theme" aria-label="Switch color theme" title="Switch color theme"><span
-        class="theme-icon" aria-hidden="true">☾</span></button>
-  </header>
-  <main id="main-content" class="article-shell">
-    <nav class="article-crumb" aria-label="Breadcrumb"><a href="/">Home</a> / Dijkstra's Shortest Path Algorithm: A
-      Step-by-Step Example</nav>
-    <header class="article-hero">
-      <div class="article-kicker">PANKRI · COMPUTER SCIENCE GUIDE</div>
-      <h1>Dijkstra's Shortest Path Algorithm: A Step-by-Step Example</h1>
-      <p>Dijkstra's algorithm finds shortest-path distances from one starting vertex in a graph with non-negative edge
-        weights. It is widely used as a foundation for routing and network pathfinding explanations.</p>
-      <div class="article-byline">An educational guide from PANKRI · Published November 3, 2026</div>
-    </header>
-    <div class="article-layout">
-      <article class="article-body">
-        <section id="problem">
-          <h2>The shortest-path problem</h2>
-          <p>A weighted graph contains vertices (locations or states) connected by edges (routes or transitions). Each
-            edge has a weight such as distance, cost or delay. The single-source shortest-path problem asks for the
-            minimum total weight from one start vertex to every reachable vertex, or to a selected destination.</p>
-          <p>Dijkstra's algorithm solves this problem when edge weights are non-negative. It does not require the graph
-            to be a road map; it works on any suitable weighted graph.</p>
-        </section>
-        <section id="example">
-          <h2>A small routing example</h2>
-          <p>Imagine a graph with routes A–B (4), A–C (3), B–D (5), B–E (2), C–E (4), C–F (6), D–G (3), E–G (2) and F–G
-            (2). Starting at A, the tentative distance to A is 0 and every other vertex begins at infinity.</p>
-          <ol>
-            <li>Visit A. Set B to 4 and C to 3.</li>
-            <li>Choose the unvisited vertex with the smallest tentative distance: C (3). Relax C–E to 7 and C–F to 9.
-            </li>
-            <li>Choose B (4). Relax B–D to 9 and B–E to 6, improving E from 7 to 6.</li>
-            <li>Choose E (6). Relax E–G to 8.</li>
-            <li>Choose G (8) next because it has the smallest remaining tentative distance. Its shortest distance from A
-              is now settled at 8.</li>
-            <li>D and F remain at tentative distance 9; their routes to G do not improve the known distance of 8.</li>
-          </ol>
-          <p>One shortest route is A → B → E → G with total weight 4 + 2 + 2 = 8. Another equal-cost route may exist in
-            other graphs; predecessor tracking reconstructs one chosen shortest path.</p>
-        </section>
-        <section id="relaxation">
-          <h2>What does edge relaxation mean?</h2>
-          <p>For an edge from u to v with weight w, relaxation tests whether <code>distance[u] + w</code> is less than
-            the current <code>distance[v]</code>. If it is, update the distance and record u as v's predecessor. This is
-            the central operation that gradually improves tentative routes.</p>
-          <pre><code>if (distance[u] + weight &lt; distance[v]) {
+<header class="topbar"><a aria-label="PANKRI home" class="brand" href="/"><span aria-hidden="true" class="brand-mark">P</span><span class="brand-word">PANKRI<span class="brand-dot">.</span></span></a><div aria-hidden="true" class="topbar-divider"></div><a class="product-name" href="/">Algorithm Lab</a><div class="topbar-spacer"></div><a class="top-link" href="/">Open visualizer ↗</a><button aria-label="Switch color theme" class="theme-toggle" data-action="toggle-theme" title="Switch color theme" type="button"><span aria-hidden="true" class="theme-icon">☾</span></button></header>
+<main class="article-shell" id="main-content"><nav aria-label="Breadcrumb" class="article-crumb"><a href="/">Home</a> / Dijkstra's Shortest Path Algorithm: A Step-by-Step Example</nav>
+<header class="article-hero"><div class="article-kicker">PANKRI · COMPUTER SCIENCE GUIDE</div><h1>Dijkstra's Shortest Path Algorithm: A Step-by-Step Example</h1><p>Dijkstra's algorithm finds shortest-path distances from one starting vertex in a graph with non-negative edge weights. It is widely used as a foundation for routing and network pathfinding explanations.</p><div class="article-byline">By <a href="https://pankri.com/author/pankaj-krishnavanshaj/">Pankaj KrishnaVanshaj</a> · BCA, Chhatrapati Shahu Ji Maharaj University, Kanpur · Updated November 13, 2026</div></header>
+<div class="article-layout"><article class="article-body"><section id="problem"><h2>The shortest-path problem</h2><p>A weighted graph contains vertices (locations or states) connected by edges (routes or transitions). Each edge has a weight such as distance, cost or delay. The single-source shortest-path problem asks for the minimum total weight from one start vertex to every reachable vertex, or to a selected destination.</p><p>Dijkstra's algorithm solves this problem when edge weights are non-negative. It does not require the graph to be a road map; it works on any suitable weighted graph.</p></section><section id="example"><h2>A small routing example</h2><p>Imagine a graph with routes A–B (4), A–C (3), B–D (5), B–E (2), C–E (4), C–F (6), D–G (3), E–G (2) and F–G (2). Starting at A, the tentative distance to A is 0 and every other vertex begins at infinity.</p><ol><li>Visit A. Set B to 4 and C to 3.</li><li>Choose the unvisited vertex with the smallest tentative distance: C (3). Relax C–E to 7 and C–F to 9.</li><li>Choose B (4). Relax B–D to 9 and B–E to 6, improving E from 7 to 6.</li><li>Choose E (6). Relax E–G to 8.</li><li>Choose G (8) next because it has the smallest remaining tentative distance. Its shortest distance from A is now settled at 8.</li><li>D and F remain at tentative distance 9; their routes to G do not improve the known distance of 8.</li></ol><p>One shortest route is A → B → E → G with total weight 4 + 2 + 2 = 8. Another equal-cost route may exist in other graphs; predecessor tracking reconstructs one chosen shortest path.</p></section><section id="relaxation"><h2>What does edge relaxation mean?</h2><p>For an edge from u to v with weight w, relaxation tests whether <code>distance[u] + w</code> is less than the current <code>distance[v]</code>. If it is, update the distance and record u as v's predecessor. This is the central operation that gradually improves tentative routes.</p><pre><code>if (distance[u] + weight &lt; distance[v]) {
   distance[v] = distance[u] + weight;
   previous[v] = u;
-}</code></pre>
-        </section>
-        <section id="priority-queue">
-          <h2>Why use a priority queue?</h2>
-          <p>A simple implementation can repeatedly scan all unvisited vertices to find the smallest tentative distance.
-            A more scalable implementation uses a min-priority queue so the next vertex can be selected efficiently.
-            With an adjacency list and a binary heap, a common complexity bound is <code>O((V + E) log V)</code>, with
-            details depending on the priority-queue implementation and how outdated entries are handled.</p>
-        </section>
-        <section id="limitations">
-          <h2>Limitations and common mistakes</h2>
-          <ul>
-            <li>Do not use ordinary Dijkstra when edges can have negative weights; use an algorithm designed for that
-              setting, such as Bellman–Ford.</li>
-            <li>Distinguish an unreachable vertex (infinite distance) from a vertex whose shortest distance is zero.
-            </li>
-            <li>Use the correct graph representation and account for directed versus undirected edges.</li>
-            <li>Store predecessors if you need to reconstruct a path, not just its distance.</li>
-            <li>Do not confuse the visualizer's operation counters with a hardware benchmark.</li>
-          </ul>
-        </section>
-        <section class="article-faq" id="faq">
-          <h2>Frequently asked questions</h2>
-          <details>
-            <summary>Does Dijkstra work with negative weights?</summary>
-            <p>No. Dijkstra relies on non-negative edge weights. Negative-weight shortest paths require a different
-              algorithm, such as Bellman–Ford.</p>
-          </details>
-          <details>
-            <summary>What does relaxation do?</summary>
-            <p>It checks whether reaching a neighbor through the current vertex gives a shorter route. If so, it updates
-              the neighbor distance and predecessor.</p>
-          </details>
-          <details>
-            <summary>Does Dijkstra find one path or all distances?</summary>
-            <p>The single-source version computes shortest distances to all reachable vertices. Keeping predecessor
-              information lets the program reconstruct a shortest path to a selected destination.</p>
-          </details>
-        </section>
-        <div class="article-cta"><strong>Explore the concept interactively</strong>
-          <p>Use PANKRI Algorithm Lab to experiment with related algorithms and inspect how their operations work.</p><a
-            href="/">Open PANKRI Algorithm Lab →</a>
-        </div>
-        <p class="article-byline">This page is educational material. Examples are simplified to explain the underlying
-          concepts; verify implementation details for your specific programming language and use case.</p>
-      </article>
-      <aside class="article-aside"><strong>On this page</strong><a href="#problem">The shortest-path problem</a><a
-          href="#example">Routing example</a><a href="#relaxation">Edge relaxation</a><a href="#priority-queue">Priority
-          queue</a><a href="#limitations">Limitations</a><a href="/">Open Algorithm Lab →</a><a href="/about/">About
-          PANKRI</a></aside>
-    </div>
-  </main>
-  <footer class="trust-footer">
-    <div class="trust-footer-inner"><a class="trust-footer-brand" href="/">PANKRI · Algorithm Lab</a><a href="/">Tool
-        home</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy</a><a
-        href="/terms/">Terms</a><a href="/disclaimer/">Disclaimer</a><a
-        href="mailto:contact@pankri.com">contact@pankri.com</a>
-      <p class="trust-footer-note">© 2026 PANKRI. Interactive computer science learning resources.</p>
-    </div>
-  </footer>
-  <script src="../assets/site.js" defer></script>
-</body>
-
-</html>
+}</code></pre></section><section id="priority-queue"><h2>Why use a priority queue?</h2><p>A simple implementation can repeatedly scan all unvisited vertices to find the smallest tentative distance. A more scalable implementation uses a min-priority queue so the next vertex can be selected efficiently. With an adjacency list and a binary heap, a common complexity bound is <code>O((V + E) log V)</code>, with details depending on the priority-queue implementation and how outdated entries are handled.</p></section><section id="limitations"><h2>Limitations and common mistakes</h2><ul><li>Do not use ordinary Dijkstra when edges can have negative weights; use an algorithm designed for that setting, such as Bellman–Ford.</li><li>Distinguish an unreachable vertex (infinite distance) from a vertex whose shortest distance is zero.</li><li>Use the correct graph representation and account for directed versus undirected edges.</li><li>Store predecessors if you need to reconstruct a path, not just its distance.</li><li>Do not confuse the visualizer's operation counters with a hardware benchmark.</li></ul></section>
+<section id="distance-table"><h2>Read the tentative-distance table</h2>
+<p>At the start, the source A has distance 0 and every other vertex has distance infinity because no route has been discovered. After relaxing A's outgoing edges, B is 4 and C is 3. The algorithm next settles C because 3 is the smallest unsettled finite distance. From C it discovers E at 7 and F at 9. Settling B later improves E from 7 to 6 and discovers D at 9. Settling E discovers G at 8. At that point G is the next smallest tentative value and its shortest distance is fixed.</p>
+<p>The distinction between tentative and settled matters. A tentative distance is the best route found so far; it may still improve. A settled distance is final under Dijkstra's non-negative-edge assumption. The predecessor for each improvement makes it possible to reconstruct the route by walking backward from the destination and then reversing the collected sequence.</p>
+</section>
+<section id="directed-undirected"><h2>Directed routes, undirected roads and equal-cost paths</h2>
+<p>A model must reflect whether movement is one-way or two-way. If a route from A to B does not imply a route back from B to A, represent it as a directed edge. For an undirected road network, each connection is typically available in both directions, potentially with different weights if direction-specific costs are part of the problem.</p>
+<p>Shortest paths are not always unique. If two routes have the same minimum sum, a correct implementation may keep either predecessor chain depending on the order neighbors are processed and how equal distances are handled. Test correctness by total path weight and edge validity, not only by exact route text.</p>
+</section>
+<section id="complexity-model"><h2>Complexity and graph size</h2>
+<p>With an adjacency list and a binary min-heap, a common Dijkstra implementation runs in <code>O((V + E) log V)</code> time and uses <code>O(V + E)</code> graph storage plus distance, predecessor and priority-queue state. A simpler implementation that scans every unvisited vertex for the minimum can take <code>O(V² + E)</code> time. For dense graphs, a simple array-based approach can be competitive because E is already close to V²; the best implementation depends on graph density and data-structure overhead.</p>
+<p>These bounds describe algorithmic work, not travel time in a real road network. Real routing systems may need to model traffic, turn restrictions, changing edge costs, multiple transport modes or heuristics for very large maps.</p>
+</section>
+<section id="further-reading"><h2>Further reading and a useful comparison</h2>
+<p>Princeton's <a href="https://algs4.cs.princeton.edu/44sp/" rel="noopener noreferrer" target="_blank">Shortest Paths reference</a> explains relaxation, Dijkstra's non-negative-weight requirement, priority queues and alternatives such as Bellman–Ford. Use it to compare the single-source shortest-path problem with other graph problems that may sound similar but have different objectives.</p>
+<h3>Check your understanding</h3><ol><li>Why is a vertex's distance only tentative before it is settled?</li><li>What breaks when a negative edge can reduce a path after a vertex was settled?</li><li>Why do predecessor references matter when the output must include a route, not just a distance?</li><li>How could two different predecessor trees both be correct?</li></ol>
+</section><section class="article-faq" id="faq"><h2>Frequently asked questions</h2><details><summary>Does Dijkstra work with negative weights?</summary><p>No. Dijkstra relies on non-negative edge weights. Negative-weight shortest paths require a different algorithm, such as Bellman–Ford.</p></details><details><summary>What does relaxation do?</summary><p>It checks whether reaching a neighbor through the current vertex gives a shorter route. If so, it updates the neighbor distance and predecessor.</p></details><details><summary>Does Dijkstra find one path or all distances?</summary><p>The single-source version computes shortest distances to all reachable vertices. Keeping predecessor information lets the program reconstruct a shortest path to a selected destination.</p></details></section><div class="article-cta"><strong>Explore the concept interactively</strong><p>Use PANKRI Algorithm Lab to experiment with related algorithms and inspect how their operations work.</p><a href="/">Open PANKRI Algorithm Lab →</a></div><p class="article-byline">This page is educational material. Examples are simplified to explain the underlying concepts; verify implementation details for your specific programming language and use case.</p></article>
+<aside class="article-aside"><strong>On this page</strong><a href="#problem">The shortest-path problem</a><a href="#example">Routing example</a><a href="#relaxation">Edge relaxation</a><a href="#priority-queue">Priority queue</a><a href="#limitations">Limitations</a><a href="/">Open Algorithm Lab →</a><a href="/about/">About PANKRI</a><a href="/author/pankaj-krishnavanshaj/">Author: Pankaj KrishnaVanshaj</a><a href="/editorial-policy/">Editorial policy &amp; corrections</a></aside></div></main>
+<footer class="trust-footer"><div class="trust-footer-inner"><a class="trust-footer-brand" href="/">PANKRI · Algorithm Lab</a><a href="/">Tool home</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a><a href="/disclaimer/">Disclaimer</a><a href="mailto:pankajyadav91224@gmail.com">pankajyadav91224@gmail.com</a><p class="trust-footer-note">© 2026 PANKRI. Interactive computer science learning resources.</p></div></footer><script defer="" src="../assets/site.js"></script>
+</body></html>

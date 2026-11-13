@@ -1,136 +1,25 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="#101827">
-    <meta name="robots" content="index,follow,max-image-preview:large">
-    <meta name="author" content="PANKRI">
-    <link rel="icon" href="../assets/favicon.png" type="image/png">
-    <link rel="icon" href="../assets/favicon.ico" sizes="any">
-    <link rel="stylesheet" href="../assets/styles.css">
-    <link rel="stylesheet" href="../assets/seo-pages.css">
-    <title>Binary Search Visualizer: Step-by-Step Search on Sorted Arrays | PANKRI</title>
-    <meta name="description"
-        content="Learn binary search with an interactive step-by-step visualizer. See midpoint checks, eliminated ranges, edge cases and O(log n) time complexity.">
-    <link rel="canonical" href="https://pankri.com/binary-search-visualizer/">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Binary Search Visualizer: Step-by-Step Search on Sorted Arrays">
-    <meta property="og:description"
-        content="Learn binary search with an interactive step-by-step visualizer. See midpoint checks, eliminated ranges, edge cases and O(log n) time complexity.">
-    <meta property="og:url" content="https://pankri.com/binary-search-visualizer/">
-    <meta name="twitter:card" content="summary">
-    <script
-        type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://pankri.com/binary-search-visualizer/#webpage", "url": "https://pankri.com/binary-search-visualizer/", "name": "Binary Search Visualizer: Step-by-Step Search on Sorted Arrays", "description": "Learn binary search with an interactive step-by-step visualizer. See midpoint checks, eliminated ranges, edge cases and O(log n) time complexity.", "isPartOf": {"@id": "https://pankri.com/#website"}, "breadcrumb": {"@id": "https://pankri.com/binary-search-visualizer/#breadcrumb"}}, {"@type": "BreadcrumbList", "@id": "https://pankri.com/binary-search-visualizer/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PANKRI", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 2, "name": "Algorithm Lab", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 3, "name": "Binary Search Visualizer: Follow Every Midpoint", "item": "https://pankri.com/binary-search-visualizer/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can Binary Search work on an unsorted array?", "acceptedAnswer": {"@type": "Answer", "text": "Not correctly in its standard form. The array must be sorted according to the same ordering used by the search."}}, {"@type": "Question", "name": "Why is Binary Search O(log n)?", "acceptedAnswer": {"@type": "Answer", "text": "Each comparison eliminates approximately half of the remaining candidates, so the number of steps grows logarithmically with input size."}}, {"@type": "Question", "name": "Is Binary Search faster than Linear Search?", "acceptedAnswer": {"@type": "Answer", "text": "For large sorted arrays, Binary Search usually needs far fewer comparisons. Linear Search works on unsorted data and can be preferable for very small collections or data structures without efficient random access."}}]}]}</script>
-</head>
-
-<body><a class="skip-link" href="#main-content">Skip to content</a>
-    <header class="topbar"><a class="brand" href="https://pankri.com/" aria-label="PANKRI home"><span class="brand-mark"
-                aria-hidden="true">P</span><span class="brand-word">PANKRI<span class="brand-dot">.</span></span></a>
-        <div class="topbar-divider" aria-hidden="true"></div><a class="product-name" href="../">Algorithm Lab</a>
-        <div class="topbar-spacer"></div><a class="top-link" href="../">Open visualizer ↗</a><button
-            class="theme-toggle" type="button" data-action="toggle-theme" aria-label="Switch color theme"
-            title="Switch color theme"><span class="theme-icon" aria-hidden="true">☾</span></button>
-    </header>
-    <main id="main-content" class="site-shell seo-page">
-        <div class="seo-breadcrumb"><a href="https://pankri.com/">Home</a> / <a href="../">Algorithm Lab</a> / Binary
-            Search Visualizer: Follow Every Midpoint</div>
-        <header class="seo-hero">
-            <div class="seo-kicker">PANKRI ALGORITHM LAB · INTERACTIVE GUIDE</div>
-            <h1>Binary Search Visualizer: Follow Every Midpoint</h1>
-            <p>Binary Search finds a target in sorted data by repeatedly discarding half of the remaining search range.
-                Use the visualizer to inspect each midpoint decision and understand why sorted order is essential.</p><a
-                class="seo-cta" href="../?view=searching#workspace">Open the interactive visualizer <span
-                    aria-hidden="true">→</span></a>
-            <div class="seo-meta">Free browser-based learning tool · No account required</div>
-        </header>
-        <div class="seo-layout">
-            <article class="seo-content">
-                <section id="topic1">
-                    <h2>How Binary Search works</h2>
-                    <p>Binary Search maintains a search interval with a left and right boundary. It checks the middle
-                        element. If the middle value equals the target, the search succeeds. If the target is smaller,
-                        the algorithm continues in the left half; if larger, it continues in the right half. Each valid
-                        decision reduces the remaining interval by roughly half.</p>
-                </section>
-                <section id="topic2">
-                    <h2>Why the input must be sorted</h2>
-                    <p>The algorithm can discard half the range only because the values are ordered. If the midpoint is
-                        smaller than the target in an ascending array, every value to its left is also too small.
-                        Without sorted order, that inference is invalid and the algorithm could discard the target.</p>
-                </section>
-                <section id="topic3">
-                    <h2>Example walkthrough</h2>
-                    <p>For the sorted array [3, 8, 12, 17, 21, 29, 34] and target 21, the first midpoint is 17. Since 21
-                        is greater, the search continues to the right. The next midpoint is 29. Since 21 is smaller, the
-                        range moves left, and the next check reaches 21. The target is found after three midpoint
-                        checks.</p>
-                </section>
-                <section id="topic4">
-                    <h2>Complexity and limitations</h2>
-                    <p>Binary Search takes O(log n) time because the remaining range is halved after each comparison.
-                        Iterative Binary Search uses O(1) auxiliary space. The data must support efficient access to its
-                        middle element; arrays are a natural fit, while a linked list does not provide constant-time
-                        indexed access.</p>
-                </section>
-                <section id="topic5">
-                    <h2>Common edge cases</h2>
-                    <p>Test a target at the first or last position, a missing target below or above the range, a
-                        one-element array, an empty array and duplicate values. When duplicates exist, ordinary Binary
-                        Search may return any matching occurrence unless the implementation is specifically designed to
-                        find the first or last match.</p>
-                </section>
-                <div class="seo-callout"><strong>Try it yourself</strong>
-                    <p>Reading about an algorithm is only the first step. Open the PANKRI workspace, use a sample or
-                        custom input, and inspect the operations rather than relying on a static example.</p><a
-                        href="../?view=searching#workspace">Launch the relevant workspace →</a>
-                </div>
-                <h2>Explore more in Algorithm Lab</h2>
-                <div class="seo-related"><a href="../sorting-algorithm-visualizer/"><strong>Sorting
-                            visualizer</strong><span>Trace comparisons and swaps in five sorting methods.</span></a><a
-                        href="../binary-search-visualizer/"><strong>Binary Search visualizer</strong><span>Inspect
-                            midpoint decisions on sorted data.</span></a><a
-                        href="../graph-algorithm-visualizer/"><strong>Graph algorithm visualizer</strong><span>Explore
-                            BFS, DFS and shortest paths.</span></a><a href="../data-structure-visualizer/"><strong>Data
-                            structure visualizer</strong><span>Practice stack, queue and linked-list
-                            operations.</span></a></div>
-                <section class="seo-faq">
-                    <h2>Frequently asked questions</h2>
-                    <details>
-                        <summary>Can Binary Search work on an unsorted array?</summary>
-                        <p>Not correctly in its standard form. The array must be sorted according to the same ordering
-                            used by the search.</p>
-                    </details>
-                    <details>
-                        <summary>Why is Binary Search O(log n)?</summary>
-                        <p>Each comparison eliminates approximately half of the remaining candidates, so the number of
-                            steps grows logarithmically with input size.</p>
-                    </details>
-                    <details>
-                        <summary>Is Binary Search faster than Linear Search?</summary>
-                        <p>For large sorted arrays, Binary Search usually needs far fewer comparisons. Linear Search
-                            works on unsorted data and can be preferable for very small collections or data structures
-                            without efficient random access.</p>
-                    </details>
-                </section>
-            </article>
-            <aside class="seo-aside">
-                <h2>In this guide</h2><a href="#topic1">How Binary Search works</a><a href="#topic2">Why the input must
-                    be sorted</a><a href="#topic3">Example walkthrough</a><a href="#topic4">Complexity and
-                    limitations</a><a href="#topic5">Common edge cases</a><a href="../?view=searching#workspace">Open
-                    interactive tool →</a>
-            </aside>
-        </div>
-    </main>
-    <footer class="seo-footer"><a href="../">Algorithm Lab</a><a href="https://pankri.com/">PANKRI Home</a><a
-            href="../about/">About</a><a href="../contact/">Contact</a><a href="../privacy-policy/">Privacy</a><a
-            href="../terms/">Terms</a><a href="../disclaimer/">Disclaimer</a><a
-            href="mailto:contact@pankri.com">contact@pankri.com</a>
-        <p>Educational explanations are provided for learning. Operation counts are illustrative and are not controlled
-            runtime benchmarks.</p>
-    </footer>
-    <script src="../assets/site.js" defer></script>
-</body>
-
-</html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="#101827" name="theme-color"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="PANKRI" name="author"/><link href="../assets/favicon.png" rel="icon" type="image/png"/>
+<link href="../assets/favicon.ico" rel="icon" sizes="any"/><link href="../assets/styles.css" rel="stylesheet"/><link href="../assets/seo-pages.css" rel="stylesheet"/><title>Binary Search Visualizer: Step-by-Step Search on Sorted Arrays | PANKRI</title><meta content="Learn binary search with an interactive step-by-step visualizer. See midpoint checks, eliminated ranges, edge cases and O(log n) time complexity." name="description"/><link href="https://pankri.com/binary-search-visualizer/" rel="canonical"/><meta content="article" property="og:type"/><meta content="Binary Search Visualizer: Step-by-Step Search on Sorted Arrays" property="og:title"/><meta content="Learn binary search with an interactive step-by-step visualizer. See midpoint checks, eliminated ranges, edge cases and O(log n) time complexity." property="og:description"/><meta content="https://pankri.com/binary-search-visualizer/" property="og:url"/><meta content="summary" name="twitter:card"/><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://pankri.com/binary-search-visualizer/#webpage","url":"https://pankri.com/binary-search-visualizer/","name":"Binary Search Visualizer: Step-by-Step Search on Sorted Arrays","description":"Learn binary search with an interactive step-by-step visualizer. See midpoint checks, eliminated ranges, edge cases and O(log n) time complexity.","isPartOf":{"@id":"https://pankri.com/#website"},"breadcrumb":{"@id":"https://pankri.com/binary-search-visualizer/#breadcrumb"},"author":{"@type":"Person","name":"Pankaj KrishnaVanshaj","url":"https://pankri.com/author/pankaj-krishnavanshaj/","jobTitle":"Web developer","alumniOf":{"@type":"CollegeOrUniversity","name":"Chhatrapati Shahu Ji Maharaj University, Kanpur"}},"dateModified":"2026-11-13"},{"@type":"BreadcrumbList","@id":"https://pankri.com/binary-search-visualizer/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"PANKRI","item":"https://pankri.com/"},{"@type":"ListItem","position":2,"name":"Algorithm Lab","item":"https://pankri.com/"},{"@type":"ListItem","position":3,"name":"Binary Search Visualizer: Follow Every Midpoint","item":"https://pankri.com/binary-search-visualizer/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Binary Search work on an unsorted array?","acceptedAnswer":{"@type":"Answer","text":"Not correctly in its standard form. The array must be sorted according to the same ordering used by the search."}},{"@type":"Question","name":"Why is Binary Search O(log n)?","acceptedAnswer":{"@type":"Answer","text":"Each comparison eliminates approximately half of the remaining candidates, so the number of steps grows logarithmically with input size."}},{"@type":"Question","name":"Is Binary Search faster than Linear Search?","acceptedAnswer":{"@type":"Answer","text":"For large sorted arrays, Binary Search usually needs far fewer comparisons. Linear Search works on unsorted data and can be preferable for very small collections or data structures without efficient random access."}}]}]}</script></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="topbar"><a aria-label="PANKRI home" class="brand" href="https://pankri.com/"><span aria-hidden="true" class="brand-mark">P</span><span class="brand-word">PANKRI<span class="brand-dot">.</span></span></a><div aria-hidden="true" class="topbar-divider"></div><a class="product-name" href="../">Algorithm Lab</a><div class="topbar-spacer"></div><a class="top-link" href="../">Open visualizer ↗</a><button aria-label="Switch color theme" class="theme-toggle" data-action="toggle-theme" title="Switch color theme" type="button"><span aria-hidden="true" class="theme-icon">☾</span></button></header><main class="site-shell seo-page" id="main-content"><div class="seo-breadcrumb"><a href="https://pankri.com/">Home</a> / <a href="../">Algorithm Lab</a> / Binary Search Visualizer: Follow Every Midpoint</div><header class="seo-hero"><div class="seo-kicker">PANKRI ALGORITHM LAB · INTERACTIVE GUIDE</div><h1>Binary Search Visualizer: Follow Every Midpoint</h1><p>Binary Search finds a target in sorted data by repeatedly discarding half of the remaining search range. Use the visualizer to inspect each midpoint decision and understand why sorted order is essential.</p><a class="seo-cta" href="../?view=searching#workspace">Open the interactive visualizer <span aria-hidden="true">→</span></a><div class="seo-meta">Free browser-based learning tool · No account required · <a href="https://pankri.com/author/pankaj-krishnavanshaj/">Author: Pankaj KrishnaVanshaj</a> · Updated November 13, 2026</div></header><div class="seo-layout"><article class="seo-content"><section id="topic1"><h2>How Binary Search works</h2><p>Binary Search maintains a search interval with a left and right boundary. It checks the middle element. If the middle value equals the target, the search succeeds. If the target is smaller, the algorithm continues in the left half; if larger, it continues in the right half. Each valid decision reduces the remaining interval by roughly half.</p></section><section id="topic2"><h2>Why the input must be sorted</h2><p>The algorithm can discard half the range only because the values are ordered. If the midpoint is smaller than the target in an ascending array, every value to its left is also too small. Without sorted order, that inference is invalid and the algorithm could discard the target.</p></section><section id="topic3"><h2>Example walkthrough</h2><p>For the sorted array [3, 8, 12, 17, 21, 29, 34] and target 21, the first midpoint is 17. Since 21 is greater, the search continues to the right. The next midpoint is 29. Since 21 is smaller, the range moves left, and the next check reaches 21. The target is found after three midpoint checks.</p></section><section id="topic4"><h2>Complexity and limitations</h2><p>Binary Search takes O(log n) time because the remaining range is halved after each comparison. Iterative Binary Search uses O(1) auxiliary space. The data must support efficient access to its middle element; arrays are a natural fit, while a linked list does not provide constant-time indexed access.</p></section><section id="topic5"><h2>Common edge cases</h2><p>Test a target at the first or last position, a missing target below or above the range, a one-element array, an empty array and duplicate values. When duplicates exist, ordinary Binary Search may return any matching occurrence unless the implementation is specifically designed to find the first or last match.</p></section><div class="seo-callout"><strong>Try it yourself</strong><p>Reading about an algorithm is only the first step. Open the PANKRI workspace, use a sample or custom input, and inspect the operations rather than relying on a static example.</p><a href="../?view=searching#workspace">Launch the relevant workspace →</a></div><h2>Explore more in Algorithm Lab</h2><div class="seo-related"><a href="../sorting-algorithm-visualizer/"><strong>Sorting visualizer</strong><span>Trace comparisons and swaps in five sorting methods.</span></a><a href="../binary-search-visualizer/"><strong>Binary Search visualizer</strong><span>Inspect midpoint decisions on sorted data.</span></a><a href="../graph-algorithm-visualizer/"><strong>Graph algorithm visualizer</strong><span>Explore BFS, DFS and shortest paths.</span></a><a href="../data-structure-visualizer/"><strong>Data structure visualizer</strong><span>Practice stack, queue and linked-list operations.</span></a></div>
+<section id="invariant"><h2>The invariant that makes Binary Search correct</h2>
+<p>Binary Search is easiest to reason about when you state what remains possible after every iteration. In an inclusive interval implementation, the target—if it exists—must be somewhere between indexes <code>left</code> and <code>right</code>. Every discarded index is known not to contain the target because the array is sorted. The loop ends when the target is found or when <code>left &gt; right</code>, which means there is no candidate index remaining.</p>
+<pre><code>while (left &lt;= right) {
+  const mid = left + Math.floor((right - left) / 2);
+  if (values[mid] === target) return mid;
+  if (values[mid] &lt; target) left = mid + 1;
+  else right = mid - 1;
+}
+return -1;</code></pre>
+<p>The midpoint expression above avoids adding two potentially large indexes before dividing. In JavaScript arrays are limited by runtime implementation constraints, but this form is also a widely used defensive habit in lower-level languages where integer overflow is a practical concern.</p>
+</section>
+<section id="trace-table"><h2>Trace a second example by hand</h2>
+<p>Consider <code>[3, 8, 12, 17, 22, 29, 35]</code> and search for <code>22</code>, using zero-based indexes. The interval begins at 0 through 6. The midpoint is index 3, whose value is 17; because 22 is larger, the next interval begins at index 4. The next midpoint is index 5, whose value is 29; because 22 is smaller, the right boundary moves to index 4. The final midpoint is index 4, where 22 is found. Three comparisons are enough for seven values.</p>
+<p>For a missing target such as 23, the same decisions eventually create an empty interval. The algorithm reports absence rather than inventing an insertion index. A separate lower-bound or upper-bound search can be used when the desired result is the first position not less than a target, or the first position greater than it.</p>
+</section>
+<section id="duplicates"><h2>Duplicates and insertion positions</h2>
+<p>Ordinary Binary Search only promises to find a matching occurrence. If a sorted array contains <code>[2, 4, 4, 4, 9]</code>, a standard implementation might return any of the three indexes holding 4 depending on its midpoint choices. To find the first match, continue searching left after a match and remember the candidate. To find the last match, continue searching right. These are boundary-search variants, not just cosmetic changes.</p>
+<p>Do not apply Binary Search to an array that changes while the search runs unless the algorithm's correctness assumptions are preserved. A mutation can invalidate the sorted order or shift indexes and make earlier comparisons stale. If data must be searched repeatedly, include the cost of sorting or maintaining order in the overall design.</p>
+</section>
+<section id="practice"><h2>Practice questions</h2><ol><li>How many midpoint checks are needed in the worst case for 1,024 sorted values, up to a small constant difference?</li><li>Why does comparing the midpoint with the target tell us which half can be discarded?</li><li>What is the difference between finding any match and finding the first match among duplicates?</li><li>Why is a linked list not an ideal structure for classic Binary Search?</li></ol>
+</section><section class="seo-faq"><h2>Frequently asked questions</h2><details><summary>Can Binary Search work on an unsorted array?</summary><p>Not correctly in its standard form. The array must be sorted according to the same ordering used by the search.</p></details><details><summary>Why is Binary Search O(log n)?</summary><p>Each comparison eliminates approximately half of the remaining candidates, so the number of steps grows logarithmically with input size.</p></details><details><summary>Is Binary Search faster than Linear Search?</summary><p>For large sorted arrays, Binary Search usually needs far fewer comparisons. Linear Search works on unsorted data and can be preferable for very small collections or data structures without efficient random access.</p></details></section></article><aside class="seo-aside"><h2>In this guide</h2><a href="#topic1">How Binary Search works</a><a href="#topic2">Why the input must be sorted</a><a href="#topic3">Example walkthrough</a><a href="#topic4">Complexity and limitations</a><a href="#topic5">Common edge cases</a><a href="../?view=searching#workspace">Open interactive tool →</a></aside></div></main><footer class="seo-footer"><a href="../">Algorithm Lab</a><a href="https://pankri.com/">PANKRI Home</a><a href="../about/">About</a><a href="../contact/">Contact</a><a href="../privacy-policy/">Privacy</a><a href="../terms/">Terms</a><a href="../disclaimer/">Disclaimer</a><a href="../editorial-policy/">Editorial policy</a><a href="../author/pankaj-krishnavanshaj/">Author</a><a href="mailto:pankajyadav91224@gmail.com">pankajyadav91224@gmail.com</a><p>Educational explanations are provided for learning. Operation counts are illustrative and are not controlled runtime benchmarks.</p></footer><script defer="" src="../assets/site.js"></script></body></html>

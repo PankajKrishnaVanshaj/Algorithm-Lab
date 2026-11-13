@@ -1,142 +1,20 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="#101827">
-    <meta name="robots" content="index,follow,max-image-preview:large">
-    <meta name="author" content="PANKRI">
-    <link rel="icon" href="../assets/favicon.png" type="image/png">
-    <link rel="icon" href="../assets/favicon.ico" sizes="any">
-    <link rel="stylesheet" href="../assets/styles.css">
-    <link rel="stylesheet" href="../assets/seo-pages.css">
-    <title>Sorting Algorithm Visualizer: Compare 5 Sorting Methods Step by Step | PANKRI</title>
-    <meta name="description"
-        content="Use the free sorting algorithm visualizer to explore Bubble, Selection, Insertion, Merge and Quick Sort. Step through comparisons, swaps and operation counts with your own array.">
-    <link rel="canonical" href="https://pankri.com/sorting-algorithm-visualizer/">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Sorting Algorithm Visualizer: Compare 5 Sorting Methods Step by Step">
-    <meta property="og:description"
-        content="Use the free sorting algorithm visualizer to explore Bubble, Selection, Insertion, Merge and Quick Sort. Step through comparisons, swaps and operation counts with your own array.">
-    <meta property="og:url" content="https://pankri.com/sorting-algorithm-visualizer/">
-    <meta name="twitter:card" content="summary">
-    <script
-        type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://pankri.com/sorting-algorithm-visualizer/#webpage", "url": "https://pankri.com/sorting-algorithm-visualizer/", "name": "Sorting Algorithm Visualizer: Compare 5 Sorting Methods Step by Step", "description": "Use the free sorting algorithm visualizer to explore Bubble, Selection, Insertion, Merge and Quick Sort. Step through comparisons, swaps and operation counts with your own array.", "isPartOf": {"@id": "https://pankri.com/#website"}, "breadcrumb": {"@id": "https://pankri.com/sorting-algorithm-visualizer/#breadcrumb"}}, {"@type": "BreadcrumbList", "@id": "https://pankri.com/sorting-algorithm-visualizer/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PANKRI", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 2, "name": "Algorithm Lab", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 3, "name": "Sorting Algorithm Visualizer: See How Sorting Works", "item": "https://pankri.com/sorting-algorithm-visualizer/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which sorting algorithm should beginners learn first?", "acceptedAnswer": {"@type": "Answer", "text": "Bubble Sort is easy to trace because it compares neighboring values. Insertion Sort is also a useful teaching example because it shows how a sorted section can grow one value at a time. Learn them as concepts, then compare them with Merge Sort and Quick Sort."}}, {"@type": "Question", "name": "Is Quick Sort always faster than Bubble Sort?", "acceptedAnswer": {"@type": "Answer", "text": "No algorithm is fastest for every input and implementation. Quick Sort is generally much more scalable on large inputs on average, but its worst case is quadratic. Small arrays, nearly sorted data, pivot selection and implementation details can change observed results."}}, {"@type": "Question", "name": "Does the visualizer benchmark actual CPU speed?", "acceptedAnswer": {"@type": "Answer", "text": "No. It visualizes algorithm steps and counts selected operations. It does not provide a controlled performance benchmark. Use dedicated benchmarking methods if you need reliable runtime measurements."}}]}]}</script>
-</head>
-
-<body><a class="skip-link" href="#main-content">Skip to content</a>
-    <header class="topbar"><a class="brand" href="https://pankri.com/" aria-label="PANKRI home"><span class="brand-mark"
-                aria-hidden="true">P</span><span class="brand-word">PANKRI<span class="brand-dot">.</span></span></a>
-        <div class="topbar-divider" aria-hidden="true"></div><a class="product-name" href="../">Algorithm Lab</a>
-        <div class="topbar-spacer"></div><a class="top-link" href="../">Open visualizer ↗</a><button
-            class="theme-toggle" type="button" data-action="toggle-theme" aria-label="Switch color theme"
-            title="Switch color theme"><span class="theme-icon" aria-hidden="true">☾</span></button>
-    </header>
-    <main id="main-content" class="site-shell seo-page">
-        <div class="seo-breadcrumb"><a href="https://pankri.com/">Home</a> / <a href="../">Algorithm Lab</a> / Sorting
-            Algorithm Visualizer: See How Sorting Works</div>
-        <header class="seo-hero">
-            <div class="seo-kicker">PANKRI ALGORITHM LAB · INTERACTIVE GUIDE</div>
-            <h1>Sorting Algorithm Visualizer: See How Sorting Works</h1>
-            <p>Explore five classic sorting algorithms with the same input. Watch comparisons and swaps, move one step
-                at a time, and compare operation counts to understand the trade-offs behind each method.</p><a
-                class="seo-cta" href="../?view=sorting#workspace">Open the interactive visualizer <span
-                    aria-hidden="true">→</span></a>
-            <div class="seo-meta">Free browser-based learning tool · No account required</div>
-        </header>
-        <div class="seo-layout">
-            <article class="seo-content">
-                <section id="topic1">
-                    <h2>What is a sorting algorithm?</h2>
-                    <p>A sorting algorithm rearranges a collection of values into a chosen order, usually ascending or
-                        descending. Sorting is a foundational computer science task because ordered data can make
-                        searching, reporting, deduplication and later processing easier. Different algorithms make
-                        different trade-offs in speed, memory use, stability and implementation complexity.</p>
-                </section>
-                <section id="topic2">
-                    <h2>Compare the five algorithms</h2>
-                    <p>Bubble Sort repeatedly compares adjacent values and swaps them when they are out of order.
-                        Selection Sort repeatedly selects the smallest remaining value and places it next. Insertion
-                        Sort grows a sorted prefix by inserting each new value into its correct position. Merge Sort
-                        divides the input, sorts each half and merges the results. Quick Sort partitions values around a
-                        pivot and recursively sorts the partitions.</p>
-                </section>
-                <section id="topic3">
-                    <h2>How to use the visualizer</h2>
-                    <p>Open the workspace, choose a sorting method, and start with the sample array or enter your own
-                        whole-number values. Generate random, already sorted, reversed or duplicate-heavy inputs. Use
-                        Play to watch the run, Pause to inspect it, and the step controls to move through individual
-                        operations. Compare the same input across algorithms rather than comparing unrelated random
-                        arrays.</p>
-                </section>
-                <section id="topic4">
-                    <h2>Understand comparisons, swaps and writes</h2>
-                    <p>A comparison checks the relationship between values. A swap exchanges two positions. A write
-                        places a value into an array position. These counters describe the work represented by this
-                        visualizer; they are not a universal measure of elapsed time. Implementations can count
-                        operations differently, and real runtime depends on the browser, device, input and code.</p>
-                </section>
-                <section id="topic5">
-                    <h2>Sorting complexity at a glance</h2>
-                    <p>Bubble Sort and Selection Sort take O(n²) comparisons in typical and worst-case analysis.
-                        Insertion Sort is O(n) on already sorted input and O(n²) in average and worst cases. Merge Sort
-                        has O(n log n) time in best, average and worst cases, with additional memory for merging. Quick
-                        Sort is O(n log n) on average and O(n²) in the worst case, depending on pivot choices and
-                        partition behavior.</p>
-                </section>
-                <div class="seo-callout"><strong>Try it yourself</strong>
-                    <p>Reading about an algorithm is only the first step. Open the PANKRI workspace, use a sample or
-                        custom input, and inspect the operations rather than relying on a static example.</p><a
-                        href="../?view=sorting#workspace">Launch the relevant workspace →</a>
-                </div>
-                <h2>Explore more in Algorithm Lab</h2>
-                <div class="seo-related"><a href="../sorting-algorithm-visualizer/"><strong>Sorting
-                            visualizer</strong><span>Trace comparisons and swaps in five sorting methods.</span></a><a
-                        href="../binary-search-visualizer/"><strong>Binary Search visualizer</strong><span>Inspect
-                            midpoint decisions on sorted data.</span></a><a
-                        href="../graph-algorithm-visualizer/"><strong>Graph algorithm visualizer</strong><span>Explore
-                            BFS, DFS and shortest paths.</span></a><a href="../data-structure-visualizer/"><strong>Data
-                            structure visualizer</strong><span>Practice stack, queue and linked-list
-                            operations.</span></a></div>
-                <section class="seo-faq">
-                    <h2>Frequently asked questions</h2>
-                    <details>
-                        <summary>Which sorting algorithm should beginners learn first?</summary>
-                        <p>Bubble Sort is easy to trace because it compares neighboring values. Insertion Sort is also a
-                            useful teaching example because it shows how a sorted section can grow one value at a time.
-                            Learn them as concepts, then compare them with Merge Sort and Quick Sort.</p>
-                    </details>
-                    <details>
-                        <summary>Is Quick Sort always faster than Bubble Sort?</summary>
-                        <p>No algorithm is fastest for every input and implementation. Quick Sort is generally much more
-                            scalable on large inputs on average, but its worst case is quadratic. Small arrays, nearly
-                            sorted data, pivot selection and implementation details can change observed results.</p>
-                    </details>
-                    <details>
-                        <summary>Does the visualizer benchmark actual CPU speed?</summary>
-                        <p>No. It visualizes algorithm steps and counts selected operations. It does not provide a
-                            controlled performance benchmark. Use dedicated benchmarking methods if you need reliable
-                            runtime measurements.</p>
-                    </details>
-                </section>
-            </article>
-            <aside class="seo-aside">
-                <h2>In this guide</h2><a href="#topic1">What is a sorting algorithm?</a><a href="#topic2">Compare the
-                    five algorithms</a><a href="#topic3">How to use the visualizer</a><a href="#topic4">Understand
-                    comparisons, swaps and writes</a><a href="#topic5">Sorting complexity at a glance</a><a
-                    href="../?view=sorting#workspace">Open interactive tool →</a>
-            </aside>
-        </div>
-    </main>
-    <footer class="seo-footer"><a href="../">Algorithm Lab</a><a href="https://pankri.com/">PANKRI Home</a><a
-            href="../about/">About</a><a href="../contact/">Contact</a><a href="../privacy-policy/">Privacy</a><a
-            href="../terms/">Terms</a><a href="../disclaimer/">Disclaimer</a><a
-            href="mailto:contact@pankri.com">contact@pankri.com</a>
-        <p>Educational explanations are provided for learning. Operation counts are illustrative and are not controlled
-            runtime benchmarks.</p>
-    </footer>
-    <script src="../assets/site.js" defer></script>
-</body>
-
-</html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="#101827" name="theme-color"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="PANKRI" name="author"/><link href="../assets/favicon.png" rel="icon" type="image/png"/>
+<link href="../assets/favicon.ico" rel="icon" sizes="any"/><link href="../assets/styles.css" rel="stylesheet"/><link href="../assets/seo-pages.css" rel="stylesheet"/><title>Sorting Algorithm Visualizer: Compare 5 Sorting Methods Step by Step | PANKRI</title><meta content="Use the free sorting algorithm visualizer to explore Bubble, Selection, Insertion, Merge and Quick Sort. Step through comparisons, swaps and operation counts with your own array." name="description"/><link href="https://pankri.com/sorting-algorithm-visualizer/" rel="canonical"/><meta content="article" property="og:type"/><meta content="Sorting Algorithm Visualizer: Compare 5 Sorting Methods Step by Step" property="og:title"/><meta content="Use the free sorting algorithm visualizer to explore Bubble, Selection, Insertion, Merge and Quick Sort. Step through comparisons, swaps and operation counts with your own array." property="og:description"/><meta content="https://pankri.com/sorting-algorithm-visualizer/" property="og:url"/><meta content="summary" name="twitter:card"/><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://pankri.com/sorting-algorithm-visualizer/#webpage","url":"https://pankri.com/sorting-algorithm-visualizer/","name":"Sorting Algorithm Visualizer: Compare 5 Sorting Methods Step by Step","description":"Use the free sorting algorithm visualizer to explore Bubble, Selection, Insertion, Merge and Quick Sort. Step through comparisons, swaps and operation counts with your own array.","isPartOf":{"@id":"https://pankri.com/#website"},"breadcrumb":{"@id":"https://pankri.com/sorting-algorithm-visualizer/#breadcrumb"},"author":{"@type":"Person","name":"Pankaj KrishnaVanshaj","url":"https://pankri.com/author/pankaj-krishnavanshaj/","jobTitle":"Web developer","alumniOf":{"@type":"CollegeOrUniversity","name":"Chhatrapati Shahu Ji Maharaj University, Kanpur"}},"dateModified":"2026-11-13"},{"@type":"BreadcrumbList","@id":"https://pankri.com/sorting-algorithm-visualizer/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"PANKRI","item":"https://pankri.com/"},{"@type":"ListItem","position":2,"name":"Algorithm Lab","item":"https://pankri.com/"},{"@type":"ListItem","position":3,"name":"Sorting Algorithm Visualizer: See How Sorting Works","item":"https://pankri.com/sorting-algorithm-visualizer/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which sorting algorithm should beginners learn first?","acceptedAnswer":{"@type":"Answer","text":"Bubble Sort is easy to trace because it compares neighboring values. Insertion Sort is also a useful teaching example because it shows how a sorted section can grow one value at a time. Learn them as concepts, then compare them with Merge Sort and Quick Sort."}},{"@type":"Question","name":"Is Quick Sort always faster than Bubble Sort?","acceptedAnswer":{"@type":"Answer","text":"No algorithm is fastest for every input and implementation. Quick Sort is generally much more scalable on large inputs on average, but its worst case is quadratic. Small arrays, nearly sorted data, pivot selection and implementation details can change observed results."}},{"@type":"Question","name":"Does the visualizer benchmark actual CPU speed?","acceptedAnswer":{"@type":"Answer","text":"No. It visualizes algorithm steps and counts selected operations. It does not provide a controlled performance benchmark. Use dedicated benchmarking methods if you need reliable runtime measurements."}}]}]}</script></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="topbar"><a aria-label="PANKRI home" class="brand" href="https://pankri.com/"><span aria-hidden="true" class="brand-mark">P</span><span class="brand-word">PANKRI<span class="brand-dot">.</span></span></a><div aria-hidden="true" class="topbar-divider"></div><a class="product-name" href="../">Algorithm Lab</a><div class="topbar-spacer"></div><a class="top-link" href="../">Open visualizer ↗</a><button aria-label="Switch color theme" class="theme-toggle" data-action="toggle-theme" title="Switch color theme" type="button"><span aria-hidden="true" class="theme-icon">☾</span></button></header><main class="site-shell seo-page" id="main-content"><div class="seo-breadcrumb"><a href="https://pankri.com/">Home</a> / <a href="../">Algorithm Lab</a> / Sorting Algorithm Visualizer: See How Sorting Works</div><header class="seo-hero"><div class="seo-kicker">PANKRI ALGORITHM LAB · INTERACTIVE GUIDE</div><h1>Sorting Algorithm Visualizer: See How Sorting Works</h1><p>Explore five classic sorting algorithms with the same input. Watch comparisons and swaps, move one step at a time, and compare operation counts to understand the trade-offs behind each method.</p><a class="seo-cta" href="../?view=sorting#workspace">Open the interactive visualizer <span aria-hidden="true">→</span></a><div class="seo-meta">Free browser-based learning tool · No account required · <a href="https://pankri.com/author/pankaj-krishnavanshaj/">Author: Pankaj KrishnaVanshaj</a> · Updated November 13, 2026</div></header><div class="seo-layout"><article class="seo-content"><section id="topic1"><h2>What is a sorting algorithm?</h2><p>A sorting algorithm rearranges a collection of values into a chosen order, usually ascending or descending. Sorting is a foundational computer science task because ordered data can make searching, reporting, deduplication and later processing easier. Different algorithms make different trade-offs in speed, memory use, stability and implementation complexity.</p></section><section id="topic2"><h2>Compare the five algorithms</h2><p>Bubble Sort repeatedly compares adjacent values and swaps them when they are out of order. Selection Sort repeatedly selects the smallest remaining value and places it next. Insertion Sort grows a sorted prefix by inserting each new value into its correct position. Merge Sort divides the input, sorts each half and merges the results. Quick Sort partitions values around a pivot and recursively sorts the partitions.</p></section><section id="topic3"><h2>How to use the visualizer</h2><p>Open the workspace, choose a sorting method, and start with the sample array or enter your own whole-number values. Generate random, already sorted, reversed or duplicate-heavy inputs. Use Play to watch the run, Pause to inspect it, and the step controls to move through individual operations. Compare the same input across algorithms rather than comparing unrelated random arrays.</p></section><section id="topic4"><h2>Understand comparisons, swaps and writes</h2><p>A comparison checks the relationship between values. A swap exchanges two positions. A write places a value into an array position. These counters describe the work represented by this visualizer; they are not a universal measure of elapsed time. Implementations can count operations differently, and real runtime depends on the browser, device, input and code.</p></section><section id="topic5"><h2>Sorting complexity at a glance</h2><p>Bubble Sort and Selection Sort take O(n²) comparisons in typical and worst-case analysis. Insertion Sort is O(n) on already sorted input and O(n²) in average and worst cases. Merge Sort has O(n log n) time in best, average and worst cases, with additional memory for merging. Quick Sort is O(n log n) on average and O(n²) in the worst case, depending on pivot choices and partition behavior.</p></section><div class="seo-callout"><strong>Try it yourself</strong><p>Reading about an algorithm is only the first step. Open the PANKRI workspace, use a sample or custom input, and inspect the operations rather than relying on a static example.</p><a href="../?view=sorting#workspace">Launch the relevant workspace →</a></div><h2>Explore more in Algorithm Lab</h2><div class="seo-related"><a href="../sorting-algorithm-visualizer/"><strong>Sorting visualizer</strong><span>Trace comparisons and swaps in five sorting methods.</span></a><a href="../binary-search-visualizer/"><strong>Binary Search visualizer</strong><span>Inspect midpoint decisions on sorted data.</span></a><a href="../graph-algorithm-visualizer/"><strong>Graph algorithm visualizer</strong><span>Explore BFS, DFS and shortest paths.</span></a><a href="../data-structure-visualizer/"><strong>Data structure visualizer</strong><span>Practice stack, queue and linked-list operations.</span></a></div>
+<section id="worked-trace"><h2>A worked trace: sorting [5, 1, 4, 2]</h2>
+<p>For Bubble Sort, the first pass compares neighboring values from left to right. It compares 5 with 1 and swaps them, then compares 5 with 4 and swaps again, then compares 5 with 2 and swaps once more. After that pass, the array is <code>[1, 4, 2, 5]</code>. The largest value has reached its final position, but the remaining prefix is not yet sorted. A second pass moves 4 behind 2, producing <code>[1, 2, 4, 5]</code>.</p>
+<p>Insertion Sort approaches the same input differently. It treats the first value as a sorted prefix, takes the next value, shifts larger prefix elements right, and inserts the value into the gap. After inserting 1, the prefix is <code>[1, 5]</code>; after inserting 4 it is <code>[1, 4, 5]</code>; inserting 2 gives the final order. The final result is the same, but the intermediate states and operation counts differ.</p>
+<h3>What to observe</h3><ul><li>When the input is already sorted, an optimized Bubble Sort can stop after a pass with no swaps.</li><li>Insertion Sort is often attractive for small or nearly sorted arrays because each new value may move only a short distance.</li><li>Merge Sort does predictable divide-and-merge work, but its temporary storage requirement is different from an in-place partitioning method.</li><li>Quick Sort behavior depends strongly on pivot selection and partition balance.</li></ul>
+</section>
+<section id="stability"><h2>Stability, memory and the meaning of equal values</h2>
+<p>A stable sort preserves the original relative order of records whose sort keys compare equal. Imagine sorting students by score while keeping their original registration order for ties. Stability matters when records carry data beyond the value used for comparison. Bubble Sort and Insertion Sort are stable in their usual textbook implementations when equal values are not needlessly swapped. Merge Sort can be stable when the merge step chooses the left value first on equality. A common in-place Quick Sort and Selection Sort implementation is not stable.</p>
+<p>“In place” is also a separate property from speed. Selection Sort, Insertion Sort and common Quick Sort variants rearrange the input array directly, although recursion still consumes stack space. Merge Sort for arrays commonly needs an auxiliary array proportional to the input length. These distinctions matter when memory is constrained or the original data must remain unchanged.</p>
+</section>
+<section id="experiment-design"><h2>Make a fair comparison in the visualizer</h2>
+<p>To compare algorithms meaningfully, start each run from the same sequence. A useful experiment records the array length, input pattern, algorithm, comparison count, swap count and write count. Repeat with sorted, reverse-sorted, random and duplicate-heavy arrays. Keep the input size fixed when comparing input patterns, then increase the size to see how the work grows.</p>
+<p>The lab records logical operations from its own JavaScript implementations. It does not isolate CPU scheduling, browser rendering, garbage collection, JIT compilation or device load, so its counters must not be read as milliseconds or as a ranking of production language libraries. Operation definitions are implementation-specific: a merge write and a swap are not interchangeable units of real machine cost.</p>
+</section>
+<section id="practice"><h2>Practice questions</h2><ol><li>Trace one complete Bubble Sort pass for <code>[7, 3, 6, 2]</code>. Which value reaches its final position?</li><li>Why can Insertion Sort be efficient when only one element is out of place?</li><li>Which property would you check before choosing a stable sort for records with duplicate keys?</li><li>Why does a single small random run not prove that one algorithm is asymptotically faster?</li></ol>
+<p>For a deeper treatment of divide-and-conquer sorting and asymptotic analysis, see the <a href="https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/" rel="noopener noreferrer" target="_blank">MIT 6.006 Introduction to Algorithms course materials</a>.</p>
+</section><section class="seo-faq"><h2>Frequently asked questions</h2><details><summary>Which sorting algorithm should beginners learn first?</summary><p>Bubble Sort is easy to trace because it compares neighboring values. Insertion Sort is also a useful teaching example because it shows how a sorted section can grow one value at a time. Learn them as concepts, then compare them with Merge Sort and Quick Sort.</p></details><details><summary>Is Quick Sort always faster than Bubble Sort?</summary><p>No algorithm is fastest for every input and implementation. Quick Sort is generally much more scalable on large inputs on average, but its worst case is quadratic. Small arrays, nearly sorted data, pivot selection and implementation details can change observed results.</p></details><details><summary>Does the visualizer benchmark actual CPU speed?</summary><p>No. It visualizes algorithm steps and counts selected operations. It does not provide a controlled performance benchmark. Use dedicated benchmarking methods if you need reliable runtime measurements.</p></details></section></article><aside class="seo-aside"><h2>In this guide</h2><a href="#topic1">What is a sorting algorithm?</a><a href="#topic2">Compare the five algorithms</a><a href="#topic3">How to use the visualizer</a><a href="#topic4">Understand comparisons, swaps and writes</a><a href="#topic5">Sorting complexity at a glance</a><a href="../?view=sorting#workspace">Open interactive tool →</a></aside></div></main><footer class="seo-footer"><a href="../">Algorithm Lab</a><a href="https://pankri.com/">PANKRI Home</a><a href="../about/">About</a><a href="../contact/">Contact</a><a href="../privacy-policy/">Privacy</a><a href="../terms/">Terms</a><a href="../disclaimer/">Disclaimer</a><a href="../editorial-policy/">Editorial policy</a><a href="../author/pankaj-krishnavanshaj/">Author</a><a href="mailto:pankajyadav91224@gmail.com">pankajyadav91224@gmail.com</a><p>Educational explanations are provided for learning. Operation counts are illustrative and are not controlled runtime benchmarks.</p></footer><script defer="" src="../assets/site.js"></script></body></html>

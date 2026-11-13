@@ -1,286 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#101827">
-  <title>How to Reverse a Linked List: The Pointer Changes Explained | PANKRI</title>
-  <meta name="description"
-    content="Learn how to reverse a singly linked list iteratively using previous, current and next pointers. Follow a concrete example, JavaScript implementation, complexity and edge cases.">
-  <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="author" content="PANKRI">
-  <link rel="canonical"
-    href="https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/">
-  <link rel="icon" href="../assets/favicon.png" type="image/png">
-  <link rel="icon" href="../assets/favicon.ico" sizes="any">
-  <link rel="stylesheet" href="../assets/styles.css">
-  <link rel="stylesheet" href="../assets/seo-pages.css">
-  <style>
-    .article-shell {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 30px 22px 70px
-    }
-
-    .article-crumb {
-      font-size: .9rem;
-      color: var(--muted, #64748b);
-      margin: 12px 0 26px
-    }
-
-    .article-crumb a {
-      color: inherit
-    }
-
-    .article-hero {
-      padding: clamp(28px, 5vw, 56px);
-      border: 1px solid var(--line, #dbe2ea);
-      border-radius: 24px;
-      background: linear-gradient(135deg, rgba(39, 110, 241, .09), rgba(17, 185, 129, .05));
-      margin-bottom: 30px
-    }
-
-    .article-kicker {
-      font-size: .78rem;
-      font-weight: 800;
-      letter-spacing: .13em;
-      text-transform: uppercase;
-      color: #2873d8
-    }
-
-    .article-hero h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      line-height: 1.08;
-      letter-spacing: -.04em;
-      margin: .7rem 0 1rem
-    }
-
-    .article-hero p {
-      font-size: 1.12rem;
-      max-width: 800px;
-      line-height: 1.75;
-      color: var(--muted, #64748b)
-    }
-
-    .article-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 260px;
-      gap: 38px
-    }
-
-    .article-body {
-      min-width: 0;
-      line-height: 1.8
-    }
-
-    .article-body h2 {
-      margin-top: 2.3rem;
-      line-height: 1.25;
-      letter-spacing: -.02em
-    }
-
-    .article-body h3 {
-      margin-top: 1.6rem
-    }
-
-    .article-body pre {
-      overflow: auto;
-      background: #101827;
-      color: #e5edf8;
-      padding: 18px;
-      border-radius: 12px;
-      line-height: 1.6
-    }
-
-    .article-body code {
-      font-family: ui-monospace, SFMono-Regular, Consolas, monospace
-    }
-
-    .article-body table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0
-    }
-
-    .article-body th,
-    .article-body td {
-      border: 1px solid var(--line, #dbe2ea);
-      padding: 10px;
-      text-align: left
-    }
-
-    .article-aside {
-      align-self: start;
-      position: sticky;
-      top: 22px;
-      border: 1px solid var(--line, #dbe2ea);
-      border-radius: 16px;
-      padding: 18px
-    }
-
-    .article-aside a {
-      display: block;
-      padding: 7px 0;
-      color: var(--link, #2563eb)
-    }
-
-    .article-cta {
-      padding: 20px;
-      border-radius: 16px;
-      background: rgba(37, 99, 235, .08);
-      margin: 26px 0
-    }
-
-    .article-cta a {
-      font-weight: 800
-    }
-
-    .bit-demo {
-      border: 1px solid var(--line, #dbe2ea);
-      border-radius: 16px;
-      padding: 18px;
-      margin: 22px 0
-    }
-
-    .bit-grid {
-      display: grid;
-      grid-template-columns: repeat(16, minmax(22px, 1fr));
-      gap: 5px;
-      margin: 14px 0
-    }
-
-    .bit-cell {
-      aspect-ratio: 1;
-      border-radius: 6px;
-      background: #e7edf5;
-      color: #344256;
-      display: grid;
-      place-items: center;
-      font: 700 .78rem ui-monospace, monospace
-    }
-
-    .bit-cell.on {
-      background: #2563eb;
-      color: #fff
-    }
-
-    .bit-demo input {
-      max-width: 260px
-    }
-
-    .bit-demo button {
-      padding: 9px 14px;
-      border: 0;
-      border-radius: 9px;
-      background: #2563eb;
-      color: #fff;
-      font-weight: 700;
-      cursor: pointer
-    }
-
-    .demo-note {
-      color: var(--muted, #64748b);
-      font-size: .9rem
-    }
-
-    .article-faq details {
-      border-top: 1px solid var(--line, #dbe2ea);
-      padding: 14px 0
-    }
-
-    .article-faq summary {
-      font-weight: 750;
-      cursor: pointer
-    }
-
-    .article-byline {
-      font-size: .88rem;
-      color: var(--muted, #64748b)
-    }
-
-    @media(max-width:850px) {
-      .article-layout {
-        grid-template-columns: 1fr
-      }
-
-      .article-aside {
-        position: static;
-        order: -1
-      }
-
-      .bit-grid {
-        grid-template-columns: repeat(8, minmax(22px, 1fr))
-      }
-    }
-  </style>
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="PANKRI">
-  <meta property="og:title" content="How to Reverse a Linked List: The Pointer Change That Reverses the Chain">
-  <meta property="og:description"
-    content="Learn how to reverse a singly linked list iteratively using previous, current and next pointers. Follow a concrete example, JavaScript implementation, complexity and edge cases.">
-  <meta property="og:url"
-    content="https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/">
-  <meta name="twitter:card" content="summary">
-  <script
-    type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/#webpage", "url": "https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/", "name": "How to Reverse a Linked List: The Pointer Changes Explained | PANKRI", "description": "Learn how to reverse a singly linked list iteratively using previous, current and next pointers. Follow a concrete example, JavaScript implementation, complexity and edge cases.", "isPartOf": {"@id": "https://pankri.com/#website"}}, {"@type": "Article", "@id": "https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/#article", "headline": "How to Reverse a Linked List: The Pointer Change That Reverses the Chain", "description": "Learn how to reverse a singly linked list iteratively using previous, current and next pointers. Follow a concrete example, JavaScript implementation, complexity and edge cases.", "mainEntityOfPage": {"@id": "https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/#webpage"}, "author": {"@type": "Organization", "name": "PANKRI", "url": "https://pankri.com/about/"}, "publisher": {"@type": "Organization", "name": "PANKRI", "url": "https://pankri.com/"}, "datePublished": "2026-11-03", "dateModified": "2026-11-03"}, {"@type": "BreadcrumbList", "@id": "https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PANKRI", "item": "https://pankri.com/"}, {"@type": "ListItem", "position": 2, "name": "How to Reverse a Linked List: The Pointer Change That Reverses the Chain", "item": "https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does reversing a linked list need extra memory?", "acceptedAnswer": {"@type": "Answer", "text": "The iterative in-place algorithm uses O(1) auxiliary space because it only stores a fixed number of node references."}}, {"@type": "Question", "name": "Why save next before changing current.next?", "acceptedAnswer": {"@type": "Answer", "text": "Changing current.next destroys the only forward reference from the current node. Saving it first ensures the remaining chain is not lost."}}, {"@type": "Question", "name": "What does the function return?", "acceptedAnswer": {"@type": "Answer", "text": "It returns the new head, which was the old tail. The caller should update its head reference to this returned node."}}]}]}</script>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="#101827" name="theme-color"/>
+<title>How to Reverse a Linked List: The Pointer Changes Explained | PANKRI</title><meta content="Learn how to reverse a singly linked list iteratively using previous, current and next pointers. Follow a concrete example, JavaScript implementation, complexity and edge cases." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="PANKRI" name="author"/>
+<link href="https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/" rel="canonical"/><link href="../assets/favicon.png" rel="icon" type="image/png"/><link href="../assets/favicon.ico" rel="icon" sizes="any"/><link href="../assets/styles.css" rel="stylesheet"/><link href="../assets/seo-pages.css" rel="stylesheet"/>
+<style>
+.article-shell{max-width:1120px;margin:0 auto;padding:30px 22px 70px}.article-crumb{font-size:.9rem;color:var(--muted,#64748b);margin:12px 0 26px}.article-crumb a{color:inherit}.article-hero{padding:clamp(28px,5vw,56px);border:1px solid var(--line,#dbe2ea);border-radius:24px;background:linear-gradient(135deg,rgba(39,110,241,.09),rgba(17,185,129,.05));margin-bottom:30px}.article-kicker{font-size:.78rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#2873d8}.article-hero h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.08;letter-spacing:-.04em;margin:.7rem 0 1rem}.article-hero p{font-size:1.12rem;max-width:800px;line-height:1.75;color:var(--muted,#64748b)}.article-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:38px}.article-body{min-width:0;line-height:1.8}.article-body h2{margin-top:2.3rem;line-height:1.25;letter-spacing:-.02em}.article-body h3{margin-top:1.6rem}.article-body pre{overflow:auto;background:#101827;color:#e5edf8;padding:18px;border-radius:12px;line-height:1.6}.article-body code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.article-body table{width:100%;border-collapse:collapse;margin:20px 0}.article-body th,.article-body td{border:1px solid var(--line,#dbe2ea);padding:10px;text-align:left}.article-aside{align-self:start;position:sticky;top:22px;border:1px solid var(--line,#dbe2ea);border-radius:16px;padding:18px}.article-aside a{display:block;padding:7px 0;color:var(--link,#2563eb)}.article-cta{padding:20px;border-radius:16px;background:rgba(37,99,235,.08);margin:26px 0}.article-cta a{font-weight:800}.bit-demo{border:1px solid var(--line,#dbe2ea);border-radius:16px;padding:18px;margin:22px 0}.bit-grid{display:grid;grid-template-columns:repeat(16,minmax(22px,1fr));gap:5px;margin:14px 0}.bit-cell{aspect-ratio:1;border-radius:6px;background:#e7edf5;color:#344256;display:grid;place-items:center;font:700 .78rem ui-monospace,monospace}.bit-cell.on{background:#2563eb;color:#fff}.bit-demo input{max-width:260px}.bit-demo button{padding:9px 14px;border:0;border-radius:9px;background:#2563eb;color:#fff;font-weight:700;cursor:pointer}.demo-note{color:var(--muted,#64748b);font-size:.9rem}.article-faq details{border-top:1px solid var(--line,#dbe2ea);padding:14px 0}.article-faq summary{font-weight:750;cursor:pointer}.article-byline{font-size:.88rem;color:var(--muted,#64748b)}@media(max-width:850px){.article-layout{grid-template-columns:1fr}.article-aside{position:static;order:-1}.bit-grid{grid-template-columns:repeat(8,minmax(22px,1fr))}}
+</style>
+<meta content="article" property="og:type"/><meta content="PANKRI" property="og:site_name"/><meta content="How to Reverse a Linked List: The Pointer Change That Reverses the Chain" property="og:title"/><meta content="Learn how to reverse a singly linked list iteratively using previous, current and next pointers. Follow a concrete example, JavaScript implementation, complexity and edge cases." property="og:description"/><meta content="https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/" property="og:url"/><meta content="summary" name="twitter:card"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/#webpage","url":"https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/","name":"How to Reverse a Linked List: The Pointer Changes Explained | PANKRI","description":"Learn how to reverse a singly linked list iteratively using previous, current and next pointers. Follow a concrete example, JavaScript implementation, complexity and edge cases.","isPartOf":{"@id":"https://pankri.com/#website"},"author":{"@type":"Person","name":"Pankaj KrishnaVanshaj","url":"https://pankri.com/author/pankaj-krishnavanshaj/","jobTitle":"Web developer","alumniOf":{"@type":"CollegeOrUniversity","name":"Chhatrapati Shahu Ji Maharaj University, Kanpur"}},"dateModified":"2026-11-13"},{"@type":"Article","@id":"https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/#article","headline":"How to Reverse a Linked List: The Pointer Change That Reverses the Chain","description":"Learn how to reverse a singly linked list iteratively using previous, current and next pointers. Follow a concrete example, JavaScript implementation, complexity and edge cases.","mainEntityOfPage":{"@id":"https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/#webpage"},"author":{"@type":"Person","name":"Pankaj KrishnaVanshaj","url":"https://pankri.com/author/pankaj-krishnavanshaj/","jobTitle":"Web developer","alumniOf":{"@type":"CollegeOrUniversity","name":"Chhatrapati Shahu Ji Maharaj University, Kanpur"}},"publisher":{"@type":"Organization","name":"PANKRI","url":"https://pankri.com/"},"datePublished":"2026-11-03","dateModified":"2026-11-13"},{"@type":"BreadcrumbList","@id":"https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"PANKRI","item":"https://pankri.com/"},{"@type":"ListItem","position":2,"name":"How to Reverse a Linked List: The Pointer Change That Reverses the Chain","item":"https://pankri.com/how-to-reverse-a-linked-list-the-pointer-change-that-reverses-the-chain/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does reversing a linked list need extra memory?","acceptedAnswer":{"@type":"Answer","text":"The iterative in-place algorithm uses O(1) auxiliary space because it only stores a fixed number of node references."}},{"@type":"Question","name":"Why save next before changing current.next?","acceptedAnswer":{"@type":"Answer","text":"Changing current.next destroys the only forward reference from the current node. Saving it first ensures the remaining chain is not lost."}},{"@type":"Question","name":"What does the function return?","acceptedAnswer":{"@type":"Answer","text":"It returns the new head, which was the old tail. The caller should update its head reference to this returned node."}}]}]}</script>
 </head>
-
 <body><a class="skip-link" href="#main-content">Skip to content</a>
-  <header class="topbar"><a class="brand" href="/" aria-label="PANKRI home"><span class="brand-mark"
-        aria-hidden="true">P</span><span class="brand-word">PANKRI<span class="brand-dot">.</span></span></a>
-    <div class="topbar-divider" aria-hidden="true"></div><a class="product-name" href="/">Algorithm Lab</a>
-    <div class="topbar-spacer"></div><a class="top-link" href="/">Open visualizer ↗</a><button class="theme-toggle"
-      type="button" data-action="toggle-theme" aria-label="Switch color theme" title="Switch color theme"><span
-        class="theme-icon" aria-hidden="true">☾</span></button>
-  </header>
-  <main id="main-content" class="article-shell">
-    <nav class="article-crumb" aria-label="Breadcrumb"><a href="/">Home</a> / How to Reverse a Linked List: The Pointer
-      Change That Reverses the Chain</nav>
-    <header class="article-hero">
-      <div class="article-kicker">PANKRI · COMPUTER SCIENCE GUIDE</div>
-      <h1>How to Reverse a Linked List: The Pointer Change That Reverses the Chain</h1>
-      <p>Reversing a singly linked list changes the direction of its next pointers. The iterative method uses three
-        references—previous, current and next—so it can reverse the links without losing access to the remaining nodes.
-      </p>
-      <div class="article-byline">An educational guide from PANKRI · Published November 3, 2026</div>
-    </header>
-    <div class="article-layout">
-      <article class="article-body">
-        <section id="structure">
-          <h2>How a singly linked list is connected</h2>
-          <p>A singly linked list is a sequence of nodes. Each node stores a value and a reference to the next node. The
-            head reference points to the first node, and the last node points to <code>null</code>. Unlike an array,
-            nodes do not need to occupy adjacent memory locations.</p>
-          <p>To reverse the list, the program changes every next reference so it points to the previous node. The old
-            tail becomes the new head.</p>
-        </section>
-        <section id="pointer-idea">
-          <h2>The three-pointer idea</h2>
-          <p>Use three references:</p>
-          <ul>
-            <li><code>previous</code> starts as <code>null</code> and trails behind the current node.</li>
-            <li><code>current</code> starts at the head and identifies the node being processed.</li>
-            <li><code>next</code> temporarily saves the next node before the current link is changed.</li>
-          </ul>
-          <p>At each iteration, save <code>current.next</code>, point <code>current.next</code> to
-            <code>previous</code>, then move previous and current one node forward. Saving next first is essential:
-            overwriting the pointer before saving it would lose the rest of the chain.</p>
-        </section>
-        <section id="walkthrough">
-          <h2>Reverse A → B → C → null</h2>
-          <ol>
-            <li>Start with previous = null and current = A.</li>
-            <li>Save next = B. Change A.next to null. Move previous to A and current to B.</li>
-            <li>Save next = C. Change B.next to A. Move previous to B and current to C.</li>
-            <li>Save next = null. Change C.next to B. Move previous to C and current to null.</li>
-            <li>The loop ends. Set the head to previous, which is C.</li>
-          </ol>
-          <p>The final chain is C → B → A → null. No node was copied; only the links were reversed.</p>
-        </section>
-        <section id="javascript">
-          <h2>JavaScript implementation</h2>
-          <pre><code>function reverseList(head) {
+<header class="topbar"><a aria-label="PANKRI home" class="brand" href="/"><span aria-hidden="true" class="brand-mark">P</span><span class="brand-word">PANKRI<span class="brand-dot">.</span></span></a><div aria-hidden="true" class="topbar-divider"></div><a class="product-name" href="/">Algorithm Lab</a><div class="topbar-spacer"></div><a class="top-link" href="/">Open visualizer ↗</a><button aria-label="Switch color theme" class="theme-toggle" data-action="toggle-theme" title="Switch color theme" type="button"><span aria-hidden="true" class="theme-icon">☾</span></button></header>
+<main class="article-shell" id="main-content"><nav aria-label="Breadcrumb" class="article-crumb"><a href="/">Home</a> / How to Reverse a Linked List: The Pointer Change That Reverses the Chain</nav>
+<header class="article-hero"><div class="article-kicker">PANKRI · COMPUTER SCIENCE GUIDE</div><h1>How to Reverse a Linked List: The Pointer Change That Reverses the Chain</h1><p>Reversing a singly linked list changes the direction of its next pointers. The iterative method uses three references—previous, current and next—so it can reverse the links without losing access to the remaining nodes.</p><div class="article-byline">By <a href="https://pankri.com/author/pankaj-krishnavanshaj/">Pankaj KrishnaVanshaj</a> · BCA, Chhatrapati Shahu Ji Maharaj University, Kanpur · Updated November 13, 2026</div></header>
+<div class="article-layout"><article class="article-body"><section id="structure"><h2>How a singly linked list is connected</h2><p>A singly linked list is a sequence of nodes. Each node stores a value and a reference to the next node. The head reference points to the first node, and the last node points to <code>null</code>. Unlike an array, nodes do not need to occupy adjacent memory locations.</p><p>To reverse the list, the program changes every next reference so it points to the previous node. The old tail becomes the new head.</p></section><section id="pointer-idea"><h2>The three-pointer idea</h2><p>Use three references:</p><ul><li><code>previous</code> starts as <code>null</code> and trails behind the current node.</li><li><code>current</code> starts at the head and identifies the node being processed.</li><li><code>next</code> temporarily saves the next node before the current link is changed.</li></ul><p>At each iteration, save <code>current.next</code>, point <code>current.next</code> to <code>previous</code>, then move previous and current one node forward. Saving next first is essential: overwriting the pointer before saving it would lose the rest of the chain.</p></section><section id="walkthrough"><h2>Reverse A → B → C → null</h2><ol><li>Start with previous = null and current = A.</li><li>Save next = B. Change A.next to null. Move previous to A and current to B.</li><li>Save next = C. Change B.next to A. Move previous to B and current to C.</li><li>Save next = null. Change C.next to B. Move previous to C and current to null.</li><li>The loop ends. Set the head to previous, which is C.</li></ol><p>The final chain is C → B → A → null. No node was copied; only the links were reversed.</p></section><section id="javascript"><h2>JavaScript implementation</h2><pre><code>function reverseList(head) {
   let previous = null;
   let current = head;
 
@@ -292,65 +27,34 @@
   }
 
   return previous; // New head
-}</code></pre>
-          <p>This assumes each node has a <code>next</code> property and that the list is acyclic. The function returns
-            the new head; callers must store that returned reference.</p>
-        </section>
-        <section id="complexity">
-          <h2>Time and space complexity</h2>
-          <p>The algorithm visits each node once, so its time complexity is <code>O(n)</code>. It uses a fixed number of
-            extra references regardless of list size, so its auxiliary space complexity is <code>O(1)</code>. A
-            recursive version is possible, but it uses call-stack space proportional to the list length.</p>
-        </section>
-        <section id="edge-cases">
-          <h2>Important edge cases</h2>
-          <ul>
-            <li>Empty list: <code>null</code> is returned.</li>
-            <li>Single-node list: that node remains the head and its next reference remains null.</li>
-            <li>Two-node list: the second node becomes the head and points to the first.</li>
-            <li>Cycles: this standard algorithm assumes an acyclic list; a cycle can cause an endless loop.</li>
-          </ul>
-        </section>
-        <section class="article-faq" id="faq">
-          <h2>Frequently asked questions</h2>
-          <details>
-            <summary>Does reversing a linked list need extra memory?</summary>
-            <p>The iterative in-place algorithm uses O(1) auxiliary space because it only stores a fixed number of node
-              references.</p>
-          </details>
-          <details>
-            <summary>Why save next before changing current.next?</summary>
-            <p>Changing current.next destroys the only forward reference from the current node. Saving it first ensures
-              the remaining chain is not lost.</p>
-          </details>
-          <details>
-            <summary>What does the function return?</summary>
-            <p>It returns the new head, which was the old tail. The caller should update its head reference to this
-              returned node.</p>
-          </details>
-        </section>
-        <div class="article-cta"><strong>Explore the concept interactively</strong>
-          <p>Use PANKRI Algorithm Lab to experiment with related algorithms and inspect how their operations work.</p><a
-            href="/">Open PANKRI Algorithm Lab →</a>
-        </div>
-        <p class="article-byline">This page is educational material. Examples are simplified to explain the underlying
-          concepts; verify implementation details for your specific programming language and use case.</p>
-      </article>
-      <aside class="article-aside"><strong>On this page</strong><a href="#structure">Linked list structure</a><a
-          href="#pointer-idea">Three pointers</a><a href="#walkthrough">Pointer walkthrough</a><a
-          href="#javascript">JavaScript code</a><a href="#complexity">Complexity</a><a href="#edge-cases">Edge
-          cases</a><a href="/">Open Algorithm Lab →</a><a href="/about/">About PANKRI</a></aside>
-    </div>
-  </main>
-  <footer class="trust-footer">
-    <div class="trust-footer-inner"><a class="trust-footer-brand" href="/">PANKRI · Algorithm Lab</a><a href="/">Tool
-        home</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy</a><a
-        href="/terms/">Terms</a><a href="/disclaimer/">Disclaimer</a><a
-        href="mailto:contact@pankri.com">contact@pankri.com</a>
-      <p class="trust-footer-note">© 2026 PANKRI. Interactive computer science learning resources.</p>
-    </div>
-  </footer>
-  <script src="../assets/site.js" defer></script>
-</body>
+}</code></pre><p>This assumes each node has a <code>next</code> property and that the list is acyclic. The function returns the new head; callers must store that returned reference.</p></section><section id="complexity"><h2>Time and space complexity</h2><p>The algorithm visits each node once, so its time complexity is <code>O(n)</code>. It uses a fixed number of extra references regardless of list size, so its auxiliary space complexity is <code>O(1)</code>. A recursive version is possible, but it uses call-stack space proportional to the list length.</p></section><section id="edge-cases"><h2>Important edge cases</h2><ul><li>Empty list: <code>null</code> is returned.</li><li>Single-node list: that node remains the head and its next reference remains null.</li><li>Two-node list: the second node becomes the head and points to the first.</li><li>Cycles: this standard algorithm assumes an acyclic list; a cycle can cause an endless loop.</li></ul></section>
+<section id="code-walkthrough"><h2>Walk through the loop with references</h2>
+<p>The iterative algorithm is short because each loop iteration does one local link reversal and then advances the three references. The save step must happen before changing the link: after <code>current.next</code> is assigned to <code>previous</code>, the old forward neighbor would otherwise be lost.</p>
+<pre><code>function reverseList(head) {
+  let previous = null;
+  let current = head;
 
-</html>
+  while (current !== null) {
+    const next = current.next;
+    current.next = previous;
+    previous = current;
+    current = next;
+  }
+
+  return previous;
+}</code></pre>
+<p>The returned reference is the new head. A caller must assign it back to its list variable: <code>head = reverseList(head)</code>. If the caller ignores the return value, the old head still points to a one-node tail and the caller may appear to have lost the rest of the list.</p>
+</section>
+<section id="invariant"><h2>The loop invariant</h2>
+<p>At the start of each iteration, <code>previous</code> is the head of the already-reversed prefix, and <code>current</code> is the first node of the not-yet-processed suffix. The link from the reversed prefix points toward its predecessor and the unprocessed suffix still retains its original forward links. Each iteration moves exactly one node from the suffix to the front of the reversed prefix. When current becomes null, every original node has been processed and previous points to the complete reversed list.</p>
+<p>This invariant is a practical way to debug pointer algorithms: name the processed and unprocessed regions, then verify what each reference means before and after every assignment.</p>
+</section>
+<section id="testing"><h2>Test the cases that expose pointer mistakes</h2>
+<ul><li><strong>Empty list:</strong> the loop runs zero times and the function returns null.</li><li><strong>One node:</strong> its next field is already null, so it remains the head.</li><li><strong>Two nodes:</strong> the second node becomes the head and points to the first.</li><li><strong>Repeated values:</strong> reversal must use node identity and links, not assume values are unique.</li><li><strong>Cycle:</strong> this algorithm assumes an acyclic list; a cycle can keep the loop running forever.</li></ul>
+<p>In production code, tests should check both the resulting value sequence and the actual node links. A value-only test can miss a broken structure if nodes happen to contain duplicate values. Also consider whether other parts of the program hold references to nodes; reversal changes their order but does not create new node objects.</p>
+</section>
+<section id="practice"><h2>Practice questions</h2><ol><li>What information would be lost if you changed <code>current.next</code> before saving it?</li><li>Why does the algorithm return <code>previous</code> rather than <code>current</code>?</li><li>Why is the iterative algorithm O(1) auxiliary space while a recursive version uses stack space?</li><li>How would you test that the old head is now the tail?</li></ol>
+</section><section class="article-faq" id="faq"><h2>Frequently asked questions</h2><details><summary>Does reversing a linked list need extra memory?</summary><p>The iterative in-place algorithm uses O(1) auxiliary space because it only stores a fixed number of node references.</p></details><details><summary>Why save next before changing current.next?</summary><p>Changing current.next destroys the only forward reference from the current node. Saving it first ensures the remaining chain is not lost.</p></details><details><summary>What does the function return?</summary><p>It returns the new head, which was the old tail. The caller should update its head reference to this returned node.</p></details></section><div class="article-cta"><strong>Explore the concept interactively</strong><p>Use PANKRI Algorithm Lab to experiment with related algorithms and inspect how their operations work.</p><a href="/">Open PANKRI Algorithm Lab →</a></div><p class="article-byline">This page is educational material. Examples are simplified to explain the underlying concepts; verify implementation details for your specific programming language and use case.</p></article>
+<aside class="article-aside"><strong>On this page</strong><a href="#structure">Linked list structure</a><a href="#pointer-idea">Three pointers</a><a href="#walkthrough">Pointer walkthrough</a><a href="#javascript">JavaScript code</a><a href="#complexity">Complexity</a><a href="#edge-cases">Edge cases</a><a href="/">Open Algorithm Lab →</a><a href="/about/">About PANKRI</a><a href="/author/pankaj-krishnavanshaj/">Author: Pankaj KrishnaVanshaj</a><a href="/editorial-policy/">Editorial policy &amp; corrections</a></aside></div></main>
+<footer class="trust-footer"><div class="trust-footer-inner"><a class="trust-footer-brand" href="/">PANKRI · Algorithm Lab</a><a href="/">Tool home</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy</a><a href="/terms/">Terms</a><a href="/disclaimer/">Disclaimer</a><a href="mailto:pankajyadav91224@gmail.com">pankajyadav91224@gmail.com</a><p class="trust-footer-note">© 2026 PANKRI. Interactive computer science learning resources.</p></div></footer><script defer="" src="../assets/site.js"></script>
+</body></html>
